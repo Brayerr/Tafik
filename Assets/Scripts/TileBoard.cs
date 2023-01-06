@@ -77,12 +77,16 @@ public class TileBoard : MonoBehaviour
 
     void SetTrailTile(Tile t)
     {
-        tiles[t.Position.x, t.Position.y].SetTileState(Tile.State.trail);
-        trail.Add(t);
+        if (t.TileState == Tile.State.empty)
+        {
+            tiles[t.Position.x, t.Position.y].SetTileState(Tile.State.trail);
+            trail.Add(t);
+        }
     }
 
     void TrailBrain()
     {
+        Tile.OnPlayerTileChanged -= SetTrailTile;
         _area1.ResetSize();
         _area2.ResetSize();
 
@@ -94,11 +98,28 @@ public class TileBoard : MonoBehaviour
                 CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.up, _area1);
                 CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.down, _area2);
             }
+            if (direction.Equals(Vector2Int.up))
+            {
+                CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.left, _area1);
+                CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.right, _area2);
+            }
+            if (direction.Equals(Vector2Int.left))
+            {
+                CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.down, _area1);
+                CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.up, _area2);
+            }
+            if (direction.Equals(Vector2Int.down))
+            {
+                CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.right, _area1);
+                CheckIfFilled(new Vector2Int(trail[i].Position.x, trail[i].Position.y) + Vector2Int.left, _area2);
+            }
         }
 
-        if (_area1.Size >= _area2.Size)
+        if (_area1.Size <= _area2.Size)
             ConvertArea(Tile.State.tofill1);
         else ConvertArea(Tile.State.tofill2);
+
+        trail.Clear();
     }
 
     void ConvertArea(Tile.State s)

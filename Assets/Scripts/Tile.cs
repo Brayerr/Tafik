@@ -94,6 +94,7 @@ public class Tile : MonoBehaviour
             case State.tofill2:
                 break;
             case State.filled:
+
                 SetColor(Color.red);
                 break;
             default:
