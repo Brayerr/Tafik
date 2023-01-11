@@ -72,7 +72,7 @@ public class Tile : MonoBehaviour
     void SetColor(Color c)
     {
         _renderer.material.color = c;
-        Debug.Log("changing color to" + c);
+        //Debug.Log("changing color to" + c);
     }
 
     public void SetTileState(State s)
