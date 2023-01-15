@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabObj: {fileID: 2017664028678047867, guid: 90352d89294895243873730cc4a8f156,
     type: 3}
-  tileBoard: {fileID: 763269475}
+  tileBoard: {fileID: 0}
 --- !u!4 &518431676
 Transform:
   m_ObjectHideFlags: 0
@@ -541,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763269473}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.93, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -557,14 +557,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 763269473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f2fe0e50ad0094b9dffe83b176fbb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bb9591fdae60954ea465ea2cb79d1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   space: 0.5
-  dimen: {x: 64, y: 64}
-  prefabObject: {fileID: 2017664028678047867, guid: 90352d89294895243873730cc4a8f156,
+  dimensions: {x: 64, y: 64}
+  EmptyPrefabObject: {fileID: 2017664028678047867, guid: afa84e5169e22d942853d3198daa2202,
     type: 3}
-  trail: []
+  FilledPrefabObject: {fileID: 2017664028678047867, guid: 17c50291f605aa447989333320c78dd6,
+    type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

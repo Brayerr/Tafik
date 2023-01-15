@@ -53,6 +53,8 @@ public class TileBoard : MonoBehaviour
 
     void CheckIfFilled(Vector2Int pos, Area areaSize)
     {
+        if (areaSize.HasEnemy)
+            return;
         if (tiles[pos.x, pos.y].TileState != Tile.State.empty)
             return;
 
@@ -155,6 +157,7 @@ class Area
 {
     public int ID { get; private set; }
     public int Size { get; private set; }
+    public bool HasEnemy { get; private set; } = false;
 
     public Area(int id)
     {
@@ -168,5 +171,9 @@ class Area
     public void IncreaseSize()
     {
         Size++;
+    }
+    public void SetHasEnemy()
+    {
+        HasEnemy = true;
     }
 }
