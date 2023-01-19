@@ -12,6 +12,7 @@ public class PlayerPosition : MonoBehaviour
 
     static public event Action<Tile> OnTrailStart;
     static public event Action AreaFilled;
+    static public event Action onTrailStart2;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class PlayerPosition : MonoBehaviour
             if (_state == Tile.State.empty) //true if starts filling
             {
                 OnTrailStart.Invoke(t);
+                onTrailStart2.Invoke();
                 ToggleTrail();
             }
 
