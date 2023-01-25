@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] float buildSpeed;
     Vector2 move;
     [SerializeField] Vector2 newDirection;
     Vector3 direction;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void AutoMovePlayer() => transform.Translate(new Vector3(direction.x, 0, direction.y) * speed * Time.deltaTime, Space.World);
+    public void AutoMovePlayer() => transform.Translate(new Vector3(direction.x, 0, direction.y) * buildSpeed * Time.deltaTime, Space.World);
 
     public void BuildModeToggler()
     {

@@ -854,6 +854,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  buildSpeed: 7.5
+  newDirection: {x: 0, y: 0}
   buildMode: 0
   canGetInput: 1
 --- !u!136 &570038052
@@ -1207,6 +1209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
+  buildSpeed: 0
+  newDirection: {x: 0, y: 0}
   buildMode: 0
   canGetInput: 1
 --- !u!1 &1227259630

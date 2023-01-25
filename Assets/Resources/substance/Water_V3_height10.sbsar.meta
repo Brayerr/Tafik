@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 516b16adcb90783449b15d110339eb0c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: f99c9f8131d7f6d4fb1a27bb1b2eb030, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Materials/substance/Water_V3_height10.sbsar

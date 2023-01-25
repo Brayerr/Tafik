@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+
 
 public class TileBoard : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class TileBoard : MonoBehaviour
     [SerializeField] Vector2Int dimen; //board size
     [SerializeField] Tile[,] tiles;
     [SerializeField] GameObject prefabObject;
+    [SerializeField] Sprite[] gridSprites = new Sprite[4096];
     Quaternion krok;
 
     [SerializeField] List<Tile> trail = new();
@@ -20,6 +23,7 @@ public class TileBoard : MonoBehaviour
         PlayerPosition.OnTrailStart += SetTrailStart;
         PlayerPosition.AreaFilled += TrailBrain;
         //SpawnGrid();
+
     }
 
     [ContextMenu("Spawn Grid")]
@@ -44,6 +48,24 @@ public class TileBoard : MonoBehaviour
             }
         }
     }
+
+    [ContextMenu("Initialize sprites in Grid")]
+    public void AddSpritesToGrid()
+    {
+        Object[] sprite = Resources.LoadAll($"substance/sand_V2_graph_0/sand_V2_basecolor");
+        int count = 1;
+        for (int i = 0; i < gridSprites.Length; i++)
+        {
+            gridSprites[i] = sprite[i + 1] as Sprite;
+        }
+
+        foreach (var item in tiles)
+        {          
+            item.sprite = sprite[count] as Sprite;
+            count++;
+        }
+    }
+
 
     void CompareAreaSize(Tile t)
     {
