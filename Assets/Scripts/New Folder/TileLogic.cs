@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class TileLogic
 {
-    public int State { get; private set; } // 0=empty 1=filled 2=
+    public int State { get; private set; } // 0=empty 1=filled 2=trail  -1=enemy area
 
     public void SomeMethod()
     {
-        Rect rec;
         
     }
 

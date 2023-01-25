@@ -23,13 +23,28 @@ public class TileBoardLogic
     }
     public void Frame()
     {
-        for (int i = 0; i < dimen.y; i++)
+
+        for (int i = 0; i < dimen.x; i++)
         {
             Tiles[i, 0].SetFilled();
             Tiles[i, dimen.y - 1].SetFilled();
+        }
+        for (int i = 0; i < dimen.y; i++)
+        {
             Tiles[0, i].SetFilled();
             Tiles[dimen.x - 1, i].SetFilled();
         }
 
+    }
+
+    public void SetTileBad(int posX, int posY)
+    {
+        if (Tiles[posX, posY].State != 0)
+            return;
+        Tiles[posX, posY].SetState(-1);
+        SetTileBad(posX + 1, posY);
+        SetTileBad(posX - 1, posY);
+        SetTileBad(posX, posY + 1);
+        SetTileBad(posX, posY - 1);
     }
 }
