@@ -18,7 +18,7 @@ public class TileBoardLogic
                 Tiles[j, i] = new();
             }
         }
-        Debug.Log($"created array od {dimen.x}{dimen.y}");
+        Debug.Log($"created array of {dimen.x}{dimen.y}");
 
     }
     public void Frame()
@@ -46,5 +46,16 @@ public class TileBoardLogic
         SetTileBad(posX - 1, posY);
         SetTileBad(posX, posY + 1);
         SetTileBad(posX, posY - 1);
+    }
+
+    public void Convert()
+    {
+        foreach (var item in Tiles)
+        {
+            if (item.State == 0)
+                item.SetFilled();
+            if (item.State == -1)
+                item.SetState(0);
+        }
     }
 }

@@ -15,8 +15,9 @@ public class TileLogic
     {
         State = 1;
     }
-    public void SetState(int stateNum)
+    public TileLogic SetState(int stateNum)
     {
         State = stateNum;
+        return this;
     }
 }
