@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
 {
     public Vector2Int Position { get; private set; }
     [SerializeField] Renderer _renderer;
+    public SpriteRenderer _spriteRenderer;
+    [SerializeField] float speed = 3;
     public Sprite sprite;
     TileBoard levelBoard;
     public State TileState { get => tileState; set => tileState = value; }

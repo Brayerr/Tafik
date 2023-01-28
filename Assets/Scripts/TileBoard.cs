@@ -12,6 +12,7 @@ public class TileBoard : MonoBehaviour
     [SerializeField] GameObject prefabObject;
     [SerializeField] Sprite[] gridSprites = new Sprite[4096];
     Quaternion krok;
+    Vector3 tileRot = new(90, 0, 0);
 
     [SerializeField] List<Tile> trail = new();
 
@@ -61,7 +62,9 @@ public class TileBoard : MonoBehaviour
 
         foreach (var item in tiles)
         {          
-            item.sprite = sprite[count] as Sprite;
+            item._spriteRenderer.sprite = sprite[count] as Sprite;
+            item._spriteRenderer.size = new Vector2(1f, 1f);
+            item.transform.Rotate(tileRot);
             count++;
         }
     }
