@@ -64,8 +64,12 @@ public class Tile : MonoBehaviour
                 //Fill();
                 Debug.Log("triggering");
             }
-            else if (TileState == State.filled) OnShootFinished.Invoke();
 
+            if (TileState == State.filled)
+            {
+                OnShootFinished.Invoke();
+                Debug.Log("invoked shot finished");
+            }
         }
 
         if (other.CompareTag("Grapple Hook"))
@@ -73,7 +77,7 @@ public class Tile : MonoBehaviour
             if (this.TileState == State.filled)
             {
                 OnGrappleTileChanged.Invoke(this);
-                Debug.Log("found a filled tile");
+                Debug.Log("locked input, hit is true, set targetpos");
             }
         }
         

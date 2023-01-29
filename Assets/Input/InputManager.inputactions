@@ -264,17 +264,6 @@
                     "action": "Special Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9f1fa4eb-ac9a-4e15-846a-eb8a86806859",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Special Ability",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }
