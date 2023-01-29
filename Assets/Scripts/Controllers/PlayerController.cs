@@ -7,15 +7,15 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    static public event Action BuildModeToggle;
 
     [SerializeField] public float speed { get; protected set; } = 5;
     [SerializeField] public float buildSpeed { get; protected set; } = 8;
     Vector2 move;
-    Vector3 direction;
-    [SerializeField] Vector2 newDirection;
+    public Vector3 direction;
+    [SerializeField] public Vector2 newDirection;
     [SerializeField] public bool buildMode { get; protected set; } = false;
     [SerializeField] public bool canGetInput { get; protected set; } = true;
+    [SerializeField] public bool usingSpecialAbility { get; protected set; } = false;
 
 
 
@@ -25,13 +25,16 @@ public class PlayerController : MonoBehaviour
         PlayerPosition.AreaFilled += BuildEnd;
         PlayerPosition.onTrailStart2 += BuildStart;
         Tile.OnPlayerTileChanged += InputToggler;
+        Tile.OnGrappleTileChanged += InputToggler;
         Player.PlayerHit += BuildEnd;
+        GrappleHook.OnShoot += UsingSpecialAbilityOn;
+        Tile.OnShootFinished += UsingSpecialAbilityOff;
     }
 
     private void Update()
     {
-        if (!buildMode) MovePlayer();        
-        else AutoMovePlayer();       
+        if (!buildMode && !usingSpecialAbility) MovePlayer();        
+        else if (buildMode && !usingSpecialAbility) AutoMovePlayer();       
     }
 
     public void OnMove(InputAction.CallbackContext context) => move = context.ReadValue<Vector2>();
@@ -65,16 +68,14 @@ public class PlayerController : MonoBehaviour
 
     public void AutoMovePlayer() => transform.Translate(new Vector3(direction.x, 0, direction.y) * buildSpeed * Time.deltaTime, Space.World);
 
-    public void BuildModeToggler()
-    {
-        if (buildMode) buildMode = false;
-        else if (!buildMode) buildMode = true;
-    }
-
     public void BuildStart() => buildMode = true;
 
     public void BuildEnd() => buildMode = false;
 
     public void InputToggler(Tile t) => canGetInput = true;
+
+    public void UsingSpecialAbilityOn() => usingSpecialAbility = true;
+
+    public void UsingSpecialAbilityOff() => usingSpecialAbility = false;
 
 }

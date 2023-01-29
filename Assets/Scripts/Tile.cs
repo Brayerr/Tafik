@@ -21,6 +21,9 @@ public class Tile : MonoBehaviour
     bool isCounted = false;
 
     static public event Action<Tile> OnPlayerTileChanged;
+    static public event Action<Tile> OnGrappleTileChanged;
+    public static event Action OnShootFinished;
+
 
     public enum State
     {
@@ -61,8 +64,19 @@ public class Tile : MonoBehaviour
                 //Fill();
                 Debug.Log("triggering");
             }
+            else if (TileState == State.filled) OnShootFinished.Invoke();
 
         }
+
+        if (other.CompareTag("Grapple Hook"))
+        {
+            if (this.TileState == State.filled)
+            {
+                OnGrappleTileChanged.Invoke(this);
+                Debug.Log("found a filled tile");
+            }
+        }
+        
     }
 
     public bool IsTileFilled()
