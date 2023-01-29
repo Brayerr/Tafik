@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour
     virtual protected void Update()
     {
         Move();
-        UpdateGridPosition();
+        //UpdateGridPosition();
     }
     
     //might have problems
