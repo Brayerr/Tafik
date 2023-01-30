@@ -12,13 +12,10 @@ public class GrappleHook : Ability
     [SerializeField] private GameObject player;
     [SerializeField] private PlayerController controller;
     [SerializeField] private GameObject grapple;
-    [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform grapplePos;
     public bool Hit = false;
     public override string abilityName { get; protected set; } = "Grapple Hook";
     public override int MPUsage { get; protected set; } = 5; // might change
-    public virtual Vector3 position { get; protected set; }
-    public Vector3 targetPos;
     public virtual Vector2 direction { get; protected set; }
     public virtual Vector2 directionHolder { get; protected set; }
     public virtual float speed { get; protected set; } = 15f;
@@ -31,7 +28,6 @@ public class GrappleHook : Ability
         grapple.gameObject.SetActive(false);
         Tile.OnShootFinished += HitSetFalse;
         Tile.OnShootFinished += GrappleSetActiveFalse;
-        Tile.OnGrappleTileChanged += SetTargetPosition;
         Tile.OnGrappleTileChanged += HitSetTrue;
         OnShoot += ResetGrapplePos;
         OnShoot += GrappleSetActiveTrue;
@@ -41,10 +37,7 @@ public class GrappleHook : Ability
     {
         if(!Hit && grapple.gameObject == isActiveAndEnabled) MoveGrapple();
         if (Hit) MovePlayer();
-
     }
-
-
 
     public void ShootGrapple()
     {
@@ -54,13 +47,6 @@ public class GrappleHook : Ability
         directionHolder = direction;
     }
 
-    public void SetDirection(Vector2 dir) => direction = dir;
-
-    public void SetTargetPosition(Tile t)
-    {
-        targetPos = t.transform.position;
-    }
-
     public void MovePlayer()
     {
         if (directionHolder == Vector2.down) player.transform.Translate(Vector3.back * (speed * 2) * Time.deltaTime, Space.World);
@@ -68,6 +54,8 @@ public class GrappleHook : Ability
         if (directionHolder == Vector2.left) player.transform.Translate(Vector3.left * (speed * 2) * Time.deltaTime, Space.World);
         if (directionHolder == Vector2.right) player.transform.Translate(Vector3.right * (speed * 2) * Time.deltaTime, Space.World);
     }
+
+    public void SetDirection(Vector2 dir) => direction = dir;
 
     public void MoveGrapple() => grapple.transform.Translate(new Vector3(directionHolder.x, 0, directionHolder.y) * speed * Time.deltaTime, Space.World);
 

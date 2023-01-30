@@ -466,7 +466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16d41ffbde56b3458a9259ccb477215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterShader: {fileID: 0}
 --- !u!1 &371124681
 GameObject:
   m_ObjectHideFlags: 0
