@@ -35,7 +35,7 @@ public class TileBoardManager : MonoBehaviour
                     _tileGraphics[j, i] = Instantiate(EmptyPrefabObject, new Vector3((j + 1) * space - (space / 2), 1, (i + 1) * space - (space / 2)), Quaternion.identity, this.transform);
                 else
                 {
-                    _tileGraphics[j, i] = Instantiate(FilledPrefabObject, new Vector3((j + 1) * space - (space / 2), 0.5f, (i + 1) * space - (space / 2)), Quaternion.identity, this.transform);
+                    _tileGraphics[j, i] = Instantiate(FilledPrefabObject, new Vector3((j + 1) * space - (space / 2), 0, (i + 1) * space - (space / 2)), Quaternion.identity, this.transform);
                 }
             }
         }
@@ -78,7 +78,7 @@ public class TileBoardManager : MonoBehaviour
 
     public void DrawTrail(TileLogic t)
     {
-        _tileGraphics[t.Position.x, t.Position.y].transform.Translate(Vector3.up);
+        _tileGraphics[t.Position.x, t.Position.y].transform.Translate(Vector3.forward);
     }
 
     public void DrawFill()
@@ -88,7 +88,7 @@ public class TileBoardManager : MonoBehaviour
             for (int j = 0; j < dimensions.x; j++)
             {
                 if (Board.Tiles[j, i].State == 1)
-                    _tileGraphics[j, i].transform.position = new Vector3(j + 0.5f, 0.5f, i + 0.5f);
+                    _tileGraphics[j, i].transform.position = new Vector3(j + 0.5f, 0, i + 0.5f);
             }
         }
     }
