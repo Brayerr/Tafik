@@ -6,7 +6,8 @@ public abstract class Ability : MonoBehaviour
 {
     public abstract string abilityName { get; protected set; }
     public abstract int MPUsage { get; protected set; }
-    
+
+    public abstract void Activate(PlayerLogic player);
     
     public enum Type
     {

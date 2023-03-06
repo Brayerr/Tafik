@@ -73,4 +73,9 @@ public class GrappleHook : Ability
     }
 
     public void ResetGrapplePos() => transform.position = grapplePos.position;
+
+    public override void Activate(PlayerLogic player)
+    {
+        throw new NotImplementedException();
+    }
 }

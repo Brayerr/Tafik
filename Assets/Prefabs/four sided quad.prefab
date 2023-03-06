@@ -244,7 +244,6 @@ GameObject:
   m_Component:
   - component: {fileID: 817079957901600690}
   - component: {fileID: 4236585843719000083}
-  - component: {fileID: 6806535958857268591}
   - component: {fileID: 4266490203990458369}
   m_Layer: 0
   m_Name: four sided quad
@@ -285,23 +284,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6806535958857268591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714748647609271518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1abfbeada2e5424dbaaafada9e6798f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 4266490203990458369}
-  _spriteRenderer: {fileID: 4266490203990458369}
-  speed: 3
-  sprite: {fileID: 0}
-  tileState: 0
 --- !u!212 &4266490203990458369
 SpriteRenderer:
   m_ObjectHideFlags: 0

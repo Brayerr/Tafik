@@ -8,16 +8,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerLogic : MonoBehaviour
 {
-    [SerializeField] float speed;
     Vector2 move;
-    [SerializeField] Vector2 newDirection;
-    Vector3 direction;
-    [SerializeField] bool buildMode = false;
-    [SerializeField] bool canGetInput = true;
-
-    [SerializeField] public Vector2 position;// { get; protected set; }
     TileLogic tile;
     int _state = 1;
+    [SerializeField] Ability ability;
+
+    [SerializeField] float speed;
+    [SerializeField] float buildSpeedMultiplier = 1;
+    [SerializeField] Vector2 newDirection;
+    [SerializeField] bool buildMode = false;
+    [SerializeField] bool canGetInput = true;
+    [SerializeField] bool canMove = true; //override
+
+    [SerializeField] public Vector2 position;// { get; protected set; }
 
     static public event Action BuildModeToggle;
     static public event Action<TileLogic> OnPlayerTileChanged;
@@ -25,6 +28,7 @@ public class PlayerLogic : MonoBehaviour
     static public event Action OnTrailStart;
     static public event Action OnTrailEnd;
 
+    public Vector3 Direction { get; private set; }
 
 
     private void Start()
@@ -40,8 +44,11 @@ public class PlayerLogic : MonoBehaviour
 
     private void Update()
     {
-        if (!buildMode) MovePlayer();
-        else AutoMovePlayer();
+        if (canMove)
+        {
+            if (!buildMode) MovePlayer();
+            else AutoMovePlayer();
+        }
 
         UpdateGridPosition();
     }
@@ -55,7 +62,7 @@ public class PlayerLogic : MonoBehaviour
         if (dPosition.x < 0 || dPosition.x > TileBoardManager.Board.Dimen.x || dPosition.y < 0 || dPosition.y > TileBoardManager.Board.Dimen.y)
             return;
         position = dPosition;
-        transform.position = new(position.x, 1, position.y);
+        //transform.position = new(position.x, 1, position.y);
     }
 
     public void AutoMoveDirectionSetter(InputAction.CallbackContext context)
@@ -65,14 +72,14 @@ public class PlayerLogic : MonoBehaviour
         if (Math.Abs(newDirection.x) > Math.Abs(newDirection.y)) newDirection.y = 0;
         else newDirection.x = 0;
 
-        if (newDirection == Vector2.up && direction == Vector3.down
-            || newDirection == Vector2.down && direction == Vector3.up
-            || newDirection == Vector2.right && direction == Vector3.left
-            || newDirection == Vector2.left && direction == Vector3.right) newDirection = Vector2.zero;
+        if (newDirection == Vector2.up && Direction == Vector3.down
+            || newDirection == Vector2.down && Direction == Vector3.up
+            || newDirection == Vector2.right && Direction == Vector3.left
+            || newDirection == Vector2.left && Direction == Vector3.right) newDirection = Vector2.zero;
 
         if (newDirection != Vector2.zero)
         {
-            direction = newDirection.normalized;
+            Direction = newDirection.normalized;
             canGetInput = false;
         }
 
@@ -80,9 +87,9 @@ public class PlayerLogic : MonoBehaviour
 
     public void AutoMovePlayer()
     {
-        Vector3 dMovement = new Vector3(direction.x, 0, direction.y) * speed * Time.deltaTime;
+        Vector3 dMovement = new Vector3(Direction.x, 0, Direction.y) * speed * buildSpeedMultiplier * Time.deltaTime;
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
-        transform.position = new(position.x, 1, position.y);
+        //transform.position = new(position.x, 1, position.y);
 
         //transform.Translate(new Vector3(direction.x, 0, direction.y) * speed * Time.deltaTime, Space.World);
     }
@@ -97,15 +104,24 @@ public class PlayerLogic : MonoBehaviour
     public void BuildEnd()
     {
         buildMode = false;
-        direction = Vector3.zero;
+        Direction = Vector3.zero;
     }
-    public void InputToggler() => canGetInput = true;
+    public void AllowInput() => canGetInput = true;
 
+    public void AdjustSpeed(float newSpeed)
+    {
+        float prevSpeed = speed;
+        speed = newSpeed;
+    }
+
+    public void EnableMove() => canMove = true;
+    public void DisableMove() => canMove = false;
 
     //logic stuff
 
     public void UpdateGridPosition()
     {
+        transform.position = new(position.x, 1, position.y);
         //enters if tile changed
         if (tile != TileBoardManager.Board.Tiles[(int)position.x, (int)position.y])
         {
@@ -115,7 +131,7 @@ public class PlayerLogic : MonoBehaviour
                 return;
             }
             tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
-            InputToggler();
+            AllowInput();
             if (tile.State != _state)
             {
                 _state = tile.State;
@@ -142,5 +158,11 @@ public class PlayerLogic : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void UseSkill(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            ability.Activate(this);
     }
 }
