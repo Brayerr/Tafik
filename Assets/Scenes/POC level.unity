@@ -1187,10 +1187,8 @@ MonoBehaviour:
   player: {fileID: 533752880}
   controller: {fileID: 533752885}
   grapple: {fileID: 1041887454}
-  rb: {fileID: 533752883}
   grapplePos: {fileID: 1799132116}
   Hit: 0
-  targetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1196093958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,7 +1743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   space: 0.5
   dimen: {x: 64, y: 64}
-  prefabObject: {fileID: 5714748647609271518, guid: 1dc257577abb53e46948a847b817cb86,
+  prefabObject: {fileID: 5714748647609271518, guid: ff958d45e921fc640bf01f572b5fd77c,
     type: 3}
   gridSprites:
   - {fileID: 0}
