@@ -32,10 +32,10 @@ public class TileBoardManager : MonoBehaviour
             for (int j = 0; j < dimensions.x; j++)
             {
                 if (Board.Tiles[j, i].State == 0)
-                    _tileGraphics[j, i] = Instantiate(EmptyPrefabObject, new Vector3((j + 1) * space - (space / 2), 1, (i + 1) * space - (space / 2)), Quaternion.identity, this.transform);
+                    _tileGraphics[j, i] = Instantiate(EmptyPrefabObject, new Vector3((j + 1) * space - (space / 2), 1, (i + 1) * space - (space / 2)), Quaternion.Euler(new(90, 0, 0)), this.transform);
                 else
                 {
-                    _tileGraphics[j, i] = Instantiate(FilledPrefabObject, new Vector3((j + 1) * space - (space / 2), 0, (i + 1) * space - (space / 2)), Quaternion.identity, this.transform);
+                    _tileGraphics[j, i] = Instantiate(FilledPrefabObject, new Vector3((j + 1) * space - (space / 2), 0, (i + 1) * space - (space / 2)), Quaternion.Euler(new(90, 0, 0)), this.transform);
                 }
             }
         }
@@ -60,7 +60,7 @@ public class TileBoardManager : MonoBehaviour
             SpriteRenderer _spriteRenderer = item.GetComponent<SpriteRenderer>();
             _spriteRenderer.sprite = sprite[count] as Sprite;
             _spriteRenderer.size = new Vector2(1f, 1f);
-            item.transform.Rotate(tileRot);
+            //item.transform.Rotate(tileRot);
             count++;
         }
     }

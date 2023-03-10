@@ -47,7 +47,7 @@ public class EnemyHCrab : Enemy
     protected override void Start()
     {
         base.Start();
-        actionRotation();
+        RotateActions();
     }
 
     protected override void Update()
@@ -57,13 +57,13 @@ public class EnemyHCrab : Enemy
 
         if (_sequencer > actionDuration)
         {
-            actionRotation();
+            RotateActions();
             _sequencer = 0;
         }
 
     }
 
-    void actionRotation()
+    void RotateActions()
     {
         _rotationIndex++;
         if (_rotationIndex > 1) _rotationIndex = 0;

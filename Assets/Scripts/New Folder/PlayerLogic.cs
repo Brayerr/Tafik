@@ -49,29 +49,36 @@ public class PlayerLogic : MonoBehaviour
             if (!buildMode) MovePlayer();
             else AutoMovePlayer();
         }
-
+        RotatePlayer();
         UpdateGridPosition();
     }
 
     public void OnMove(InputAction.CallbackContext context) => move = context.ReadValue<Vector2>();
     public void MovePlayer()
     {
+        //calculate movement for this frame
         Vector3 dMovement = new Vector3(move.x, 0f, move.y) * speed * Time.deltaTime;
-        //dMovement = dMovement.normalized * Time.deltaTime * speed;
+        //find the position after movement
         Vector2 dPosition = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
+        //leave the method if the player would leave the board
         if (dPosition.x < 0 || dPosition.x > TileBoardManager.Board.Dimen.x || dPosition.y < 0 || dPosition.y > TileBoardManager.Board.Dimen.y)
             return;
+        //update position
         position = dPosition;
-        //transform.position = new(position.x, 1, position.y);
     }
 
     public void AutoMoveDirectionSetter(InputAction.CallbackContext context)
     {
         if (canGetInput) newDirection = context.ReadValue<Vector2>();
 
+        //cancel out diagonal movement
         if (Math.Abs(newDirection.x) > Math.Abs(newDirection.y)) newDirection.y = 0;
         else newDirection.x = 0;
 
+        //
+        //direction needs to be reset
+        //this method is always being called, so going back and forth stops direction from changing
+        //
         if (newDirection == Vector2.up && Direction == Vector3.down
             || newDirection == Vector2.down && Direction == Vector3.up
             || newDirection == Vector2.right && Direction == Vector3.left
@@ -87,12 +94,27 @@ public class PlayerLogic : MonoBehaviour
 
     public void AutoMovePlayer()
     {
+        //calculate movement for this frame
         Vector3 dMovement = new Vector3(Direction.x, 0, Direction.y) * speed * buildSpeedMultiplier * Time.deltaTime;
+        //update position
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
-        //transform.position = new(position.x, 1, position.y);
-
-        //transform.Translate(new Vector3(direction.x, 0, direction.y) * speed * Time.deltaTime, Space.World);
     }
+
+    public void RotatePlayer()
+    {
+        if (move == Vector2.up) transform.rotation = Quaternion.Euler(new(0, 180, 0));
+        else if (move == Vector2.right) transform.rotation = Quaternion.Euler(new(0, -90, 0));
+        else if (move == Vector2.left) transform.rotation = Quaternion.Euler(new(0, 90, 0));
+        else if (move == Vector2.down) transform.rotation = Quaternion.Euler(new(0, 0, 0));
+        else if (!buildMode)
+        {
+            if (move == new Vector2(1, 1).normalized) transform.rotation = Quaternion.Euler(new(0, 225, 0));
+            else if (move == new Vector2(1, -1).normalized) transform.rotation = Quaternion.Euler(new(0, -45, 0));
+            else if (move == new Vector2(-1, 1).normalized) transform.rotation = Quaternion.Euler(new(0, 135, 0));
+            else if (move == new Vector2(-1, -1).normalized) transform.rotation = Quaternion.Euler(new(0, 45, 0));
+        }
+    }
+
     public void BuildModeToggler()
     {
         if (buildMode) buildMode = false;

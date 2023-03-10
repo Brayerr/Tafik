@@ -14,6 +14,7 @@ public abstract class Enemy : MonoBehaviour
         tile = new TileLogic();
 
         EnemyManager.AddEnemy(this);
+        //for now, initial position is transform position
         position = new Vector2(transform.position.x, transform.position.z);
     }
 
