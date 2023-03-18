@@ -9,7 +9,7 @@ public class TileBoard : MonoBehaviour
     [SerializeField] float space; //space between instances
     [SerializeField] Vector2Int dimen; //board size
     [SerializeField] Tile[,] tiles;
-    [SerializeField] GameObject prefabObject;
+    [SerializeField] UnityEngine.GameObject prefabObject;
     [SerializeField] Sprite[] gridSprites = new Sprite[4096];
     Quaternion krok;
     Vector3 tileRot = new(90, 0, 0);
@@ -35,7 +35,7 @@ public class TileBoard : MonoBehaviour
         {
             for (int j = 1; j <= dimen.x; j++)
             {
-                GameObject go = Instantiate(prefabObject, new Vector3(j * space - space / 2, 0, i * space - (space / 2)), krok, this.transform);
+                UnityEngine.GameObject go = Instantiate(prefabObject, new Vector3(j * space - space / 2, 0, i * space - (space / 2)), krok, this.transform);
                 Tile t = go.GetComponent<Tile>();
                 if (!t)
                 {
@@ -53,7 +53,7 @@ public class TileBoard : MonoBehaviour
     [ContextMenu("Initialize sprites in Grid")]
     public void AddSpritesToGrid()
     {
-        Object[] sprite = Resources.LoadAll($"substance/sand_V2_graph_0/sand_V2_basecolor");
+        UnityEngine.Object[] sprite = Resources.LoadAll($"substance/sand_V2_graph_0/sand_V2_basecolor");
         int count = 1;
         for (int i = 0; i < gridSprites.Length; i++)
         {

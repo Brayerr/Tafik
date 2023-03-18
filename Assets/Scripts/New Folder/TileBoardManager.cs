@@ -8,14 +8,14 @@ public class TileBoardManager : MonoBehaviour
     [SerializeField] float space; //space between instances
     [SerializeField] Vector2Int dimensions;
 
-    [SerializeField] GameObject EmptyPrefabObject;
-    [SerializeField] GameObject FilledPrefabObject;
+    [SerializeField] UnityEngine.GameObject EmptyPrefabObject;
+    [SerializeField] UnityEngine.GameObject FilledPrefabObject;
     [SerializeField] Sprite[] gridSprites = new Sprite[4096];
     Vector3 tileRot = new(90, 0, 0);
 
 
     static public TileBoardLogic Board { get; private set; }
-    GameObject[,] _tileGraphics;
+    UnityEngine.GameObject[,] _tileGraphics;
 
 
 
@@ -25,7 +25,7 @@ public class TileBoardManager : MonoBehaviour
     {
         Board = new(dimensions);
         Board.Frame();
-        _tileGraphics = new GameObject[dimensions.x, dimensions.y];
+        _tileGraphics = new UnityEngine.GameObject[dimensions.x, dimensions.y];
 
         for (int i = 0; i < dimensions.y; i++)
         {
@@ -48,7 +48,7 @@ public class TileBoardManager : MonoBehaviour
     [ContextMenu("Initialize sprites in Grid")]
     public void AddSpritesToGrid()
     {
-        Object[] sprite = Resources.LoadAll($"substance/sand_V2_graph_0/sand_V2_basecolor");
+        UnityEngine.Object[] sprite = Resources.LoadAll($"substance/sand_V2_graph_0/sand_V2_basecolor");
         int count = 1;
         //for (int i = 0; i < gridSprites.Length; i++)
         //{

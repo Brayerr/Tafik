@@ -8,12 +8,12 @@ public class GrappleHook2 : Ability
     public override string abilityName { get; protected set; } = "Grapple Hook";
     public override int MPUsage { get; protected set; }
 
-    GameObject hookObject;
+    UnityEngine.GameObject hookObject;
     GrappleHookHook hook;
 
     private void Start()
     {
-        hookObject = Resources.Load<GameObject>("Prefabs/Hook");
+        hookObject = Resources.Load<UnityEngine.GameObject>("Prefabs/Hook");
     }
 
     public override void Activate(PlayerLogic player)

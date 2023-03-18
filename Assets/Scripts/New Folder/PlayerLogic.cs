@@ -16,7 +16,7 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float buildSpeedMultiplier = 1;
     [SerializeField] Vector2 newDirection;
-    [SerializeField] bool buildMode = false;
+    public bool buildMode = false;
     [SerializeField] bool canGetInput = true;
     [SerializeField] bool canMove = true; //override
 
@@ -75,10 +75,7 @@ public class PlayerLogic : MonoBehaviour
         if (Math.Abs(newDirection.x) > Math.Abs(newDirection.y)) newDirection.y = 0;
         else newDirection.x = 0;
 
-        //
-        //direction needs to be reset
-        //this method is always being called, so going back and forth stops direction from changing
-        //
+
         if (newDirection == Vector2.up && Direction == Vector3.down
             || newDirection == Vector2.down && Direction == Vector3.up
             || newDirection == Vector2.right && Direction == Vector3.left
@@ -86,9 +83,12 @@ public class PlayerLogic : MonoBehaviour
 
         if (newDirection != Vector2.zero)
         {
+            Direction = Vector2.zero; // fixed random direction bug
             Direction = newDirection.normalized;
             canGetInput = false;
         }
+        
+
 
     }
 

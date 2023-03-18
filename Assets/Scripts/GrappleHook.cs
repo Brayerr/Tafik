@@ -9,9 +9,9 @@ public class GrappleHook : Ability
 {
     public static event Action OnShoot;
 
-    [SerializeField] private GameObject player;
+    [SerializeField] private UnityEngine.GameObject player;
     [SerializeField] private PlayerController controller;
-    [SerializeField] private GameObject grapple;
+    [SerializeField] private UnityEngine.GameObject grapple;
     [SerializeField] private Transform grapplePos;
     public bool Hit = false;
     public override string abilityName { get; protected set; } = "Grapple Hook";

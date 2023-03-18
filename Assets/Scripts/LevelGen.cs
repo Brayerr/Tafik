@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class LevelGen : MonoBehaviour
 {
     [SerializeField]
-    GameObject PrefabObj;
+    UnityEngine.GameObject PrefabObj;
     [SerializeField]
     TileBoard tileBoard;
 }
