@@ -14,7 +14,7 @@ public class PlayerLogic : MonoBehaviour
     int _state = 1;
     [SerializeField] Ability ability;
 
-    [SerializeField] float speed;
+    [SerializeField] public float speed;
     [SerializeField] float buildSpeedMultiplier = 1;
     [SerializeField] Vector2 newDirection;
     public bool buildMode = false;
@@ -22,6 +22,7 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] bool canMove = true; //override
 
     [SerializeField] public Vector2 position;// { get; protected set; }
+    [SerializeField] PlayerTouchMovement touchMovement;
 
     static public event Action BuildModeToggle;
     static public event Action<TileLogic> OnPlayerTileChanged;
@@ -47,8 +48,12 @@ public class PlayerLogic : MonoBehaviour
     {
         if (canMove)
         {
-            if (!buildMode) MovePlayer();
-            else AutoMovePlayer();
+            if (!buildMode)
+            {
+                //NewMovePlayer(touchMovement.scaledMovement);
+                MovePlayer();
+            }
+            else AutoMovePlayer() /*NewAutoMoveDirectionSetter(touchMovement.scaledMovement)*/;
         }
         RotatePlayer();
         UpdateGridPosition();
@@ -81,16 +86,14 @@ public class PlayerLogic : MonoBehaviour
             || newDirection == Vector2.down && Direction == Vector3.up
             || newDirection == Vector2.right && Direction == Vector3.left
             || newDirection == Vector2.left && Direction == Vector3.right) newDirection = Vector2.zero;
+        
+
 
         if (newDirection != Vector2.zero)
         {
-            Direction = Vector2.zero; // fixed random direction bug
             Direction = newDirection.normalized;
             canGetInput = false;
         }
-
-
-
     }
 
     public void AutoMovePlayer()
@@ -194,5 +197,49 @@ public class PlayerLogic : MonoBehaviour
     {
         if (context.performed)
             ability.Activate(this);
+    }
+
+    public void NewMovePlayer(Vector3 movement)
+    {
+        movement = movement.normalized;
+        //calculate movement for this frame
+        Vector3 dMovement = new Vector3(movement.x, 0f, movement.y) * speed * Time.deltaTime;
+        //find the position after movement
+        Vector2 dPosition = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
+        //leave the method if the player would leave the board
+        if (dPosition.x < 0 || dPosition.x > TileBoardManager.Board.Dimen.x || dPosition.y < 0 || dPosition.y > TileBoardManager.Board.Dimen.y)
+            return;
+        //update position
+        position = dPosition;
+    }
+
+    public void NewAutoMoveDirectionSetter(Vector2 movement)
+    {
+        if (canGetInput) newDirection = movement;
+
+        //cancel out diagonal movement
+        if (Math.Abs(newDirection.x) > Math.Abs(newDirection.y))
+        {
+            newDirection.y = 0;
+        }
+        else
+        {
+            newDirection.x = 0;
+        }
+
+
+        if (newDirection == Vector2.up && Direction == Vector3.down
+            || newDirection == Vector2.down && Direction == Vector3.up
+            || newDirection == Vector2.right && Direction == Vector3.left
+            || newDirection == Vector2.left && Direction == Vector3.right) newDirection = Vector2.zero;
+
+
+
+        if (newDirection != Vector2.zero)
+        {
+            Direction = newDirection.normalized;
+            canGetInput = false;
+        }
+        AutoMovePlayer();
     }
 }

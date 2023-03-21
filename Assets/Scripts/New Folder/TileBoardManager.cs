@@ -10,7 +10,7 @@ public class TileBoardManager : MonoBehaviour
 
     [SerializeField] UnityEngine.GameObject EmptyPrefabObject;
     [SerializeField] UnityEngine.GameObject FilledPrefabObject;
-    [SerializeField] Sprite[] gridSprites = new Sprite[4096];
+    [SerializeField] Sprite[] gridSprites = new Sprite[1280];
     Vector3 tileRot = new(90, 0, 0);
 
 

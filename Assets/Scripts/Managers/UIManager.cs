@@ -32,19 +32,19 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            if (firstTouch) RepositionStick();
+        //if (Input.GetMouseButton(0))
+        //{
+        //    if (firstTouch) RepositionStick();
 
-            StickLogic();
-        }
+        //    StickLogic();
+        //}
         //else DisableStick();
         //livesText.text = ($"LIVES - {player.HP}");
 
         if (!updateScoreIsListener)
         {
             TileBoardLogic.OnConvert += UpdateScore;
-            updateScoreIsListener=true;
+            updateScoreIsListener = true;
         }
     }
 

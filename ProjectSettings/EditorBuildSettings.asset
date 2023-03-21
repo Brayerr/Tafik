@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/POC level.unity
     guid: 629f0bdc292c26a46a053246e8089d31
   - enabled: 1
-    path: Assets/Scenes/controller checks.unity
+    path: Assets/Scenes/Alons workshop.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 82d3f394821df6249aa27d85df92da5b,
