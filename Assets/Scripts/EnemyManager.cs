@@ -23,4 +23,17 @@ static public class EnemyManager
         }
         OnThreatenComplete.Invoke();
     }
+
+    static public T FindEnemy<T>(Vector2 sPos, float range) where T : Enemy
+    {
+        foreach (var item in enemies)
+        {
+            if (item.GetType() == typeof(T))
+            {
+                if (item.position.InRange(sPos, range))
+                    return (T)item;
+            }
+        }
+        return null;
+    }
 }

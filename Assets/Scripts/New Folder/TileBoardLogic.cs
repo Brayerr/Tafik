@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TileBoardLogic
 {
+    static public int TotalTiles { get; private set; }
+    static public int DugTiles { get; private set; }
     public Vector2Int Dimen { get; }
     public TileLogic[,] Tiles { get; }
 
@@ -13,6 +15,12 @@ public class TileBoardLogic
     public TileBoardLogic(Vector2Int d)
     {
         Dimen = d;
+
+        TotalTiles = (Dimen.x - 2) * (Dimen.y - 2);
+        if (TotalTiles < 1)
+            TotalTiles = 1;
+        DugTiles = 0;
+
         Tiles = new TileLogic[Dimen.x, Dimen.y];
         for (int i = 0; i < Dimen.y; i++)
         {
@@ -32,13 +40,13 @@ public class TileBoardLogic
 
         for (int i = 0; i < Dimen.x; i++)
         {
-            Tiles[i, 0].SetFilled();
-            Tiles[i, Dimen.y - 1].SetFilled();
+            Tiles[i, 0].SetBorder();
+            Tiles[i, Dimen.y - 1].SetBorder();
         }
         for (int i = 0; i < Dimen.y; i++)
         {
-            Tiles[0, i].SetFilled();
-            Tiles[Dimen.x - 1, i].SetFilled();
+            Tiles[0, i].SetBorder();
+            Tiles[Dimen.x - 1, i].SetBorder();
         }
 
     }
@@ -77,10 +85,16 @@ public class TileBoardLogic
         foreach (var item in Tiles)
         {
             if (item.State == 0 || item.State == 2)
-                item.SetFilled();
+                item.SetDug();
             if (item.State == -1)
                 item.SetState(0);
         }
+        Debug.Log($"{DugTiles} / {TotalTiles} - {DugTiles * 100 / TotalTiles} %"); //prints dig progress, but includes outer area
         OnConvert.Invoke();
+    }
+
+    static public void AddDugTile()
+    {
+        DugTiles++;
     }
 }

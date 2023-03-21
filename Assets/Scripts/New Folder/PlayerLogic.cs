@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerLogic : MonoBehaviour
 {
+    public bool Alive { get; private set; } = true;
     Vector2 move;
     TileLogic tile;
     int _state = 1;
@@ -87,7 +88,7 @@ public class PlayerLogic : MonoBehaviour
             Direction = newDirection.normalized;
             canGetInput = false;
         }
-        
+
 
 
     }
@@ -138,6 +139,11 @@ public class PlayerLogic : MonoBehaviour
 
     public void EnableMove() => canMove = true;
     public void DisableMove() => canMove = false;
+    public void KillPlayer()
+    {
+        Alive = false;
+        Debug.Log($"Player Died {Time.realtimeSinceStartup}");
+    }
 
     //logic stuff
 
@@ -153,6 +159,8 @@ public class PlayerLogic : MonoBehaviour
                 return;
             }
             tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
+            if (tile.State == 2)
+                KillPlayer();
             AllowInput();
             if (tile.State != _state)
             {
