@@ -27,7 +27,7 @@ public class EnemyHCrabShell : Enemy
     {
         crabParent = crab;
         transform.SetParent(parent);
-        transform.position = parent.position;
+        transform.localPosition = Vector3.up;
         return true;
     }
 

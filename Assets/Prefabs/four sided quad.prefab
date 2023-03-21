@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3485070920401425639}
-  - component: {fileID: 6493996242185767146}
-  - component: {fileID: 3395321422328399600}
   - component: {fileID: 895875985563164681}
   m_Layer: 0
   m_Name: second side quad
@@ -34,37 +32,6 @@ Transform:
   m_Father: {fileID: 817079957901600690}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!64 &6493996242185767146
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2354587883186813340}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &3395321422328399600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2354587883186813340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1abfbeada2e5424dbaaafada9e6798f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 895875985563164681}
-  _spriteRenderer: {fileID: 895875985563164681}
-  speed: 3
-  sprite: {fileID: 0}
-  tileState: 0
 --- !u!212 &895875985563164681
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -126,8 +93,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6798270873212128490}
-  - component: {fileID: 1894204338250342330}
-  - component: {fileID: 6184712462641304507}
   - component: {fileID: 3149066352187127402}
   m_Layer: 0
   m_Name: left side quad
@@ -151,37 +116,6 @@ Transform:
   m_Father: {fileID: 817079957901600690}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1894204338250342330
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4031063534460775440}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6184712462641304507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4031063534460775440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1abfbeada2e5424dbaaafada9e6798f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 3149066352187127402}
-  _spriteRenderer: {fileID: 3149066352187127402}
-  speed: 3
-  sprite: {fileID: 0}
-  tileState: 0
 --- !u!212 &3149066352187127402
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -243,7 +177,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 817079957901600690}
-  - component: {fileID: 4236585843719000083}
   - component: {fileID: 4266490203990458369}
   m_Layer: 0
   m_Name: four sided quad
@@ -270,20 +203,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!64 &4236585843719000083
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714748647609271518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!212 &4266490203990458369
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -345,8 +264,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2846598278512957949}
-  - component: {fileID: 1443839940995567151}
-  - component: {fileID: 7282364704804096627}
   - component: {fileID: 5910702243942517382}
   m_Layer: 0
   m_Name: right side quad
@@ -370,37 +287,6 @@ Transform:
   m_Father: {fileID: 817079957901600690}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1443839940995567151
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8453560755719406049}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &7282364704804096627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8453560755719406049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1abfbeada2e5424dbaaafada9e6798f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 5910702243942517382}
-  _spriteRenderer: {fileID: 5910702243942517382}
-  speed: 3
-  sprite: {fileID: 0}
-  tileState: 0
 --- !u!212 &5910702243942517382
 SpriteRenderer:
   m_ObjectHideFlags: 0

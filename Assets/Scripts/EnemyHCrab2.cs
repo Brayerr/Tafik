@@ -44,6 +44,24 @@ public class EnemyHCrab2 : Enemy
     protected override void Start()
     {
         base.Start();
+        switch (Random.Range(0, 4))
+        {
+            case 0:
+                direction = Vector2.up + Vector2.right;
+                break;
+            case 1:
+                direction = Vector2.down + Vector2.right;
+                break;
+            case 2:
+                direction = Vector2.down + Vector2.left;
+                break;
+            case 3:
+                direction = Vector2.up + Vector2.left;
+                break;
+            default:
+                break;
+        }
+
     }
 
     protected override void Update()
@@ -58,7 +76,6 @@ public class EnemyHCrab2 : Enemy
         {
             if (timer > _cooldown)
             {
-                Debug.Log("searching");
                 ChildShell = EnemyManager.FindEnemy<EnemyHCrabShell>(position, pickRadius);
                 PickShell();
                 timer = 0;

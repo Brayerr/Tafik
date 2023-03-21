@@ -13,27 +13,49 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Button MainMenuButton;
     [SerializeField] private Image stick;
+    [SerializeField] private TextMeshProUGUI digPrecentageText;
+    [SerializeField] private TextMeshProUGUI VictoryText;
     private Vector2 mousePositionHolder;
 
     private bool firstTouch = false;
+
+    bool updateScoreIsListener = false;
 
 
     private void Start()
     {
         CloseGameOverMenu();
         GameManager.GameOver += OpenGameOverMenu;
+        digPrecentageText.text = "";
+
     }
 
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            if(firstTouch) RepositionStick();
+            if (firstTouch) RepositionStick();
 
             StickLogic();
         }
-        else DisableStick();
-        livesText.text = ($"LIVES - {player.HP}");
+        //else DisableStick();
+        //livesText.text = ($"LIVES - {player.HP}");
+
+        if (!updateScoreIsListener)
+        {
+            TileBoardLogic.OnConvert += UpdateScore;
+            updateScoreIsListener=true;
+        }
+    }
+
+    public void UpdateScore()
+    {
+        digPrecentageText.text = $"{TileBoardLogic.DugPrecentage}%";
+    }
+
+    public void Victory()
+    {
+        VictoryText.gameObject.SetActive(true);
     }
 
 
@@ -52,7 +74,7 @@ public class UIManager : MonoBehaviour
     public void RepositionStick()
     {
 #if UNITY_EDITOR
-        stick.transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y -60);
+        stick.transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y - 60);
 #endif
 
 #if !UNITY_EDITOR

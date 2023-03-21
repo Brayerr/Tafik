@@ -7,6 +7,8 @@ public class TileBoardLogic
 {
     static public int TotalTiles { get; private set; }
     static public int DugTiles { get; private set; }
+    static public byte DugPrecentage { get; private set; }
+    
     public Vector2Int Dimen { get; }
     public TileLogic[,] Tiles { get; }
 
@@ -20,6 +22,7 @@ public class TileBoardLogic
         if (TotalTiles < 1)
             TotalTiles = 1;
         DugTiles = 0;
+        DugPrecentage = 0;
 
         Tiles = new TileLogic[Dimen.x, Dimen.y];
         for (int i = 0; i < Dimen.y; i++)
@@ -53,13 +56,13 @@ public class TileBoardLogic
 
     void StartTrail()
     {
-        Debug.Log("start trail called");
+        //Debug.Log("start trail called");
         PlayerLogic.OnPlayerTileChanged += Trail;
     }
 
     void EndTrail()
     {
-        Debug.Log("end trail called");
+        //Debug.Log("end trail called");
         PlayerLogic.OnPlayerTileChanged -= Trail;
         EnemyManager.ThreatenTile();
     }
@@ -89,7 +92,8 @@ public class TileBoardLogic
             if (item.State == -1)
                 item.SetState(0);
         }
-        Debug.Log($"{DugTiles} / {TotalTiles} - {DugTiles * 100 / TotalTiles} %"); //prints dig progress, but includes outer area
+        DugPrecentage = (byte)(DugTiles * 100 / TotalTiles);
+        //Debug.Log($"{DugTiles} / {TotalTiles} - {DugTiles * 100 / TotalTiles} %"); //prints dig progress, but includes outer area
         OnConvert.Invoke();
     }
 

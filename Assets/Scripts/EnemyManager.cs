@@ -18,7 +18,7 @@ static public class EnemyManager
     {
         foreach (Enemy e in enemies)
         {
-            Debug.Log("threatening");
+            //Debug.Log("threatening");
             TileBoardManager.Board.SetTileBad((int)e.position.x, (int)e.position.y);
         }
         OnThreatenComplete.Invoke();

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static event Action GameOver;
     public static GameManager instance;
+    [SerializeField] UIManager UI;
+    bool victoryIsListener;
 
     private void Awake()
     {
@@ -19,6 +21,21 @@ public class GameManager : MonoBehaviour
     {
         GameOver += TimeFreeze;
         Player.PlayerDead += GameOver;
+    }
+
+    private void Update()
+    {
+        if (!victoryIsListener)
+        {
+            TileBoardLogic.OnConvert += Victory;
+            victoryIsListener = true;
+        }
+    }
+
+    public void Victory()
+    {
+        if (TileBoardLogic.DugPrecentage >= 70)
+            UI.Victory();
     }
 
     public void TimeFreeze() => Time.timeScale = 0;
