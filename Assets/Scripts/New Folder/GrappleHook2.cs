@@ -21,7 +21,7 @@ public class GrappleHook2 : Ability
         player.DisableMove();
         //player.BuildEnd();
 
-        hook = Instantiate(hookObject/*Resources.Load("Prefabs/Hook", typeof(GameObject)) as GameObject*/, transform.position + player.Direction, player.transform.rotation).GetComponent<GrappleHookHook>();
+        hook = Instantiate(hookObject/*Resources.Load("Prefabs/Hook", typeof(GameObject)) as GameObject*/, transform.position + (Vector3)player.Direction, player.transform.rotation).GetComponent<GrappleHookHook>();
         //Resources.Load("enemy", typeof(GameObject))
         hook.GetPlayer(player);
 

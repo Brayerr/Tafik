@@ -8,6 +8,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerLogic : MonoBehaviour
 {
+#region Animation Events
+    static public event Action OnWalk;
+    static public event Action OnStopWalk;
+    static public event Action OnDig;
+    static public event Action OnStopDig;
+    static public event Action OnShootGrapple;
+    #endregion
+
+
     public bool Alive { get; private set; } = true;
     Vector2 move;
     TileLogic tile;
@@ -30,7 +39,7 @@ public class PlayerLogic : MonoBehaviour
     static public event Action OnTrailStart;
     static public event Action OnTrailEnd;
 
-    public Vector3 Direction { get; private set; }
+    public Vector2 Direction { get; private set; }
 
 
     private void Start()
@@ -50,10 +59,10 @@ public class PlayerLogic : MonoBehaviour
         {
             if (!buildMode)
             {
-                //NewMovePlayer(touchMovement.scaledMovement);
-                MovePlayer();
+                NewMovePlayer(touchMovement.MovementAmount);
+                //MovePlayer();
             }
-            else AutoMovePlayer() /*NewAutoMoveDirectionSetter(touchMovement.scaledMovement)*/;
+            else /*AutoMovePlayer()*/ NewAutoMoveDirectionSetter(touchMovement.MovementAmount);
         }
         RotatePlayer();
         UpdateGridPosition();
@@ -62,6 +71,9 @@ public class PlayerLogic : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) => move = context.ReadValue<Vector2>();
     public void MovePlayer()
     {
+        if (move != Vector2.zero) OnWalk.Invoke();
+        else OnStopWalk.Invoke();
+
         //calculate movement for this frame
         Vector3 dMovement = new Vector3(move.x, 0f, move.y) * speed * Time.deltaTime;
         //find the position after movement
@@ -82,10 +94,10 @@ public class PlayerLogic : MonoBehaviour
         else newDirection.x = 0;
 
 
-        if (newDirection == Vector2.up && Direction == Vector3.down
-            || newDirection == Vector2.down && Direction == Vector3.up
-            || newDirection == Vector2.right && Direction == Vector3.left
-            || newDirection == Vector2.left && Direction == Vector3.right) newDirection = Vector2.zero;
+        if (newDirection == Vector2.up && Direction == Vector2.down
+            || newDirection == Vector2.down && Direction == Vector2.up
+            || newDirection == Vector2.right && Direction == Vector2.left
+            || newDirection == Vector2.left && Direction == Vector2.right) newDirection = Vector2.zero;
         
 
 
@@ -106,16 +118,16 @@ public class PlayerLogic : MonoBehaviour
 
     public void RotatePlayer()
     {
-        if (move == Vector2.up) transform.rotation = Quaternion.Euler(new(0, 180, 0));
-        else if (move == Vector2.right) transform.rotation = Quaternion.Euler(new(0, -90, 0));
-        else if (move == Vector2.left) transform.rotation = Quaternion.Euler(new(0, 90, 0));
-        else if (move == Vector2.down) transform.rotation = Quaternion.Euler(new(0, 0, 0));
+        if (Direction == Vector2.up) transform.rotation = Quaternion.Euler(new(0, 180, 0));
+        else if (Direction == Vector2.right) transform.rotation = Quaternion.Euler(new(0, -90, 0));
+        else if (Direction == Vector2.left) transform.rotation = Quaternion.Euler(new(0, 90, 0));
+        else if (Direction == Vector2.down) transform.rotation = Quaternion.Euler(new(0, 0, 0));
         else if (!buildMode)
         {
-            if (move == new Vector2(1, 1).normalized) transform.rotation = Quaternion.Euler(new(0, 225, 0));
-            else if (move == new Vector2(1, -1).normalized) transform.rotation = Quaternion.Euler(new(0, -45, 0));
-            else if (move == new Vector2(-1, 1).normalized) transform.rotation = Quaternion.Euler(new(0, 135, 0));
-            else if (move == new Vector2(-1, -1).normalized) transform.rotation = Quaternion.Euler(new(0, 45, 0));
+            if (Direction == new Vector2(1, 1).normalized) transform.rotation = Quaternion.Euler(new(0, 225, 0));
+            else if (Direction == new Vector2(1, -1).normalized) transform.rotation = Quaternion.Euler(new(0, -45, 0));
+            else if (Direction == new Vector2(-1, 1).normalized) transform.rotation = Quaternion.Euler(new(0, 135, 0));
+            else if (Direction == new Vector2(-1, -1).normalized) transform.rotation = Quaternion.Euler(new(0, 45, 0));
         }
     }
 
@@ -125,11 +137,16 @@ public class PlayerLogic : MonoBehaviour
         else if (!buildMode) buildMode = true;
     }
 
-    public void BuildStart() => buildMode = true;
+    public void BuildStart()
+    {
+        buildMode = true;
+        OnDig.Invoke();
+    }
 
     public void BuildEnd()
     {
         buildMode = false;
+        OnStopDig.Invoke();
         Direction = Vector3.zero;
     }
     public void AllowInput() => canGetInput = true;
@@ -196,11 +213,17 @@ public class PlayerLogic : MonoBehaviour
     public void UseSkill(InputAction.CallbackContext context)
     {
         if (context.performed)
+        {
             ability.Activate(this);
+            OnShootGrapple.Invoke();
+        }
     }
 
     public void NewMovePlayer(Vector3 movement)
     {
+        if (touchMovement.MovementAmount != Vector2.zero) OnWalk.Invoke();
+        else OnStopWalk.Invoke();
+
         movement = movement.normalized;
         //calculate movement for this frame
         Vector3 dMovement = new Vector3(movement.x, 0f, movement.y) * speed * Time.deltaTime;
@@ -211,6 +234,7 @@ public class PlayerLogic : MonoBehaviour
             return;
         //update position
         position = dPosition;
+        Direction = movement;
     }
 
     public void NewAutoMoveDirectionSetter(Vector2 movement)
@@ -228,10 +252,10 @@ public class PlayerLogic : MonoBehaviour
         }
 
 
-        if (newDirection == Vector2.up && Direction == Vector3.down
-            || newDirection == Vector2.down && Direction == Vector3.up
-            || newDirection == Vector2.right && Direction == Vector3.left
-            || newDirection == Vector2.left && Direction == Vector3.right) newDirection = Vector2.zero;
+        if (newDirection == Vector2.up && Direction == Vector2.down
+            || newDirection == Vector2.down && Direction == Vector2.up
+            || newDirection == Vector2.right && Direction == Vector2.left
+            || newDirection == Vector2.left && Direction == Vector2.right) newDirection = Vector2.zero;
 
 
 

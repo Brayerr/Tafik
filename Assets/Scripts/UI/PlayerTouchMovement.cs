@@ -14,7 +14,7 @@ public class PlayerTouchMovement : MonoBehaviour
     public Vector2 scaledMovement;
 
     private Finger MovementFinger;
-    private Vector2 MovementAmount;
+    public Vector2 MovementAmount;
 
 
     private void OnEnable()
@@ -31,11 +31,6 @@ public class PlayerTouchMovement : MonoBehaviour
         ETouch.Touch.onFingerUp -= HandleLoseFinger;
         ETouch.Touch.onFingerMove -= HandleFingerMove;
         EnhancedTouchSupport.Disable();
-    }
-
-    void Update()
-    {
-        scaledMovement = player.speed * Time.deltaTime * new Vector2(MovementAmount.x, MovementAmount.y).normalized;
     }
 
     private void HandleFingerMove(Finger MovedFinger)
@@ -57,6 +52,18 @@ public class PlayerTouchMovement : MonoBehaviour
 
             Joystick.Knob.anchoredPosition = knobPosition;
             MovementAmount = knobPosition / maxMovement;
+
+            if (MovementAmount.x * MovementAmount.x > MovementAmount.y * MovementAmount.y)
+            {
+                MovementAmount.y = 0;
+                MovementAmount.Normalize();
+            }
+            else if (MovementAmount.y * MovementAmount.y > MovementAmount.x * MovementAmount.x)
+            {
+                MovementAmount.x = 0;
+                MovementAmount.Normalize();
+            }
+
         }
     }
 
