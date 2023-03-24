@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 public class TileBoardManager : MonoBehaviour
 {
@@ -17,15 +18,17 @@ public class TileBoardManager : MonoBehaviour
     static public TileBoardLogic Board { get; private set; }
     UnityEngine.GameObject[,] _tileGraphics;
 
-
+    [SerializeField] List<Vector3> specialTiles = new List<Vector3>();
 
 
     [ContextMenu("Spawn Grid")]
     public void SpawnGrid()
     {
         Board = new(dimensions);
+        SetSpecialTiles();
         Board.Frame();
         _tileGraphics = new UnityEngine.GameObject[dimensions.x, dimensions.y];
+
 
         for (int i = 0; i < dimensions.y; i++)
         {
@@ -65,6 +68,18 @@ public class TileBoardManager : MonoBehaviour
         }
     }
 
+    public void SetSpecialTiles()
+    {
+        int count = 0;
+        foreach (var item in specialTiles)
+        {
+            for (int i = (int)item.y ; i <= (int)item.z; i++)
+            {
+                Board.Tiles[i, (int)item.x].SetBorder();
+            }
+            count++;
+        }
+    }
 
     void StartDrawTrail()
     {
