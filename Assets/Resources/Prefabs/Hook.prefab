@@ -131,6 +131,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hookSpeed: 33
   _reelSpeed: 33
+  range: 15
+  _maxDistance: 0
+  _distanceTraveled: 0
   _lineRenderer: {fileID: 4800987259747172230}
 --- !u!120 &4800987259747172230
 LineRenderer:

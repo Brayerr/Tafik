@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerLogic : MonoBehaviour
 {
-#region Animation Events
+    #region Animation Events
     static public event Action OnWalk;
     static public event Action OnStopWalk;
     static public event Action OnDig;
@@ -20,6 +20,7 @@ public class PlayerLogic : MonoBehaviour
     public bool Alive { get; private set; } = true;
     Vector2 move;
     TileLogic tile;
+    TileLogic missedTile;
     int _state = 1;
     [SerializeField] Ability ability;
 
@@ -98,7 +99,7 @@ public class PlayerLogic : MonoBehaviour
             || newDirection == Vector2.down && Direction == Vector2.up
             || newDirection == Vector2.right && Direction == Vector2.left
             || newDirection == Vector2.left && Direction == Vector2.right) newDirection = Vector2.zero;
-        
+
 
 
         if (newDirection != Vector2.zero)
@@ -235,6 +236,10 @@ public class PlayerLogic : MonoBehaviour
         //update position
         position = dPosition;
         Direction = movement;
+        if (dMovement.sqrMagnitude > 1)
+        {
+            missedTile = TileBoardManager.Board.Tiles[(int)(position.x - Direction.x), (int)(position.y - Direction.y)];
+        }
     }
 
     public void NewAutoMoveDirectionSetter(Vector2 movement)
