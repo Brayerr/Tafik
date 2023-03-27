@@ -35,4 +35,9 @@ public class EnemyHCrabShell : Enemy
     {
 
     }
+
+    public override void RotateEnemy()
+    {
+
+    }
 }

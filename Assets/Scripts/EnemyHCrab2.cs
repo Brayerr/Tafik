@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHCrab2 : Enemy
 {
+    public static event Action<Vector3> OnDropShell;
+    public static event Action<Vector3> OnPickShell;
+
+    [SerializeField] Vector2 target;
     [SerializeField] float _cooldown;
     [SerializeField] Vector2 direction;
     [SerializeField] float offset;
@@ -25,12 +30,14 @@ public class EnemyHCrab2 : Enemy
         //check if moving horizontally hits a wall
         if (TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].State == 1)
         {
+            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(-direction.x, direction.y);
             dMovement.x = -dMovement.x;
         }
         //check if moving vertically hits a wall
         if (TileBoardManager.Board.Tiles[(int)position.x, (int)(position.y + dMovement.z)].State == 1)
         {
+            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(direction.x, -direction.y);
             dMovement.z = -dMovement.z;
         }
@@ -44,7 +51,7 @@ public class EnemyHCrab2 : Enemy
     protected override void Start()
     {
         base.Start();
-        switch (Random.Range(0, 4))
+        switch (UnityEngine.Random.Range(0, 4))
         {
             case 0:
                 direction = Vector2.up + Vector2.right;
@@ -89,13 +96,22 @@ public class EnemyHCrab2 : Enemy
         ChildShell.Drop();
         ChildShell = null;
         hasShell = false;
+        OnDropShell.Invoke(transform.position);
     }
 
     void PickShell()
     {
         ChildShell?.PickUp(transform, this);
-        if (ChildShell != null) hasShell = true;
+        if (ChildShell != null)
+        {
+            hasShell = true;
+            //ChildShell.transform.rotation = new Quaternion().ToEuler(0, 180, 0);
+            OnPickShell.Invoke(transform.position);
+        }
     }
 
-
+    public override void RotateEnemy()
+    {
+        transform.LookAt(new Vector3(target.x, 0, target.y));
+    }
 }

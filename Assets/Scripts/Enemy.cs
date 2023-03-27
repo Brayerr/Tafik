@@ -21,6 +21,7 @@ public abstract class Enemy : MonoBehaviour
     virtual protected void Update()
     {
         Move();
+        RotateEnemy();
         //UpdateGridPosition();
     }
     
@@ -34,5 +35,7 @@ public abstract class Enemy : MonoBehaviour
         }
 
     }
+
+    public abstract void RotateEnemy();
 
 }

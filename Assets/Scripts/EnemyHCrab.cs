@@ -113,4 +113,9 @@ public class EnemyHCrab : Enemy
         }
 
     }
+
+    public override void RotateEnemy()
+    {
+        Debug.Log("rotating");
+    }
 }

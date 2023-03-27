@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SimpleEnemyBehavior : Enemy
 {
+    Vector2 target;
     Vector2 direction;
     float speed = 3;
 
@@ -30,6 +31,7 @@ public class SimpleEnemyBehavior : Enemy
                 break;
         }
     }
+
     public override void Move()
     {
         //the movement enemy is about to perform
@@ -38,12 +40,14 @@ public class SimpleEnemyBehavior : Enemy
         //check if moving horizontally hits a wall
         if (TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].State == 1)
         {
+            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(-direction.x, direction.y);
             dMovement.x = -dMovement.x;
         }
         //check if moving vertically hits a wall
         if (TileBoardManager.Board.Tiles[(int)position.x, (int)(position.y + dMovement.z)].State == 1)
         {
+            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(direction.x, -direction.y);
             dMovement.z = -dMovement.z;
         }
@@ -51,5 +55,10 @@ public class SimpleEnemyBehavior : Enemy
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
         //update position in unity
         transform.position = new(position.x, 1, position.y);
+    }
+
+    public override void RotateEnemy()
+    {
+        transform.LookAt(new Vector3(target.x, 0, target.y));
     }
 }
