@@ -44,7 +44,7 @@ public class SandVFXPool : MonoBehaviour
             if (sandVFX != null)
             {
                 sandVFX.transform.position = new(t.Position.x + 0.5f, sandVFX.transform.position.y, t.Position.y);
-                sandVFX.gameObject.SetActive(true);
+                sandVFX.SetActive(true);
             }
         }
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SimpleEnemyBehavior : Enemy
 {
-    Vector2 target;
     Vector2 direction;
     float speed = 3;
 
@@ -40,15 +39,15 @@ public class SimpleEnemyBehavior : Enemy
         //check if moving horizontally hits a wall
         if (TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].State == 1)
         {
-            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(-direction.x, direction.y);
+            RotateEnemy();
             dMovement.x = -dMovement.x;
         }
         //check if moving vertically hits a wall
         if (TileBoardManager.Board.Tiles[(int)position.x, (int)(position.y + dMovement.z)].State == 1)
         {
-            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(direction.x, -direction.y);
+            RotateEnemy();
             dMovement.z = -dMovement.z;
         }
         //move in data
@@ -59,6 +58,9 @@ public class SimpleEnemyBehavior : Enemy
 
     public override void RotateEnemy()
     {
-        transform.LookAt(new Vector3(target.x, 0, target.y));
+        if (direction == new Vector2(1, 1)) transform.rotation = Quaternion.Euler(new(0, 225, 0));
+        else if (direction == new Vector2(1, -1)) transform.rotation = Quaternion.Euler(new(0, -45, 0));
+        else if (direction == new Vector2(-1, 1)) transform.rotation = Quaternion.Euler(new(0, 135, 0));
+        else if (direction == new Vector2(-1, -1)) transform.rotation = Quaternion.Euler(new(0, 45, 0));
     }
 }

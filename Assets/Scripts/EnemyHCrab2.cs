@@ -8,7 +8,6 @@ public class EnemyHCrab2 : Enemy
     public static event Action<Vector3> OnDropShell;
     public static event Action<Vector3> OnPickShell;
 
-    [SerializeField] Vector2 target;
     [SerializeField] float _cooldown;
     [SerializeField] Vector2 direction;
     [SerializeField] float offset;
@@ -30,15 +29,15 @@ public class EnemyHCrab2 : Enemy
         //check if moving horizontally hits a wall
         if (TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].State == 1)
         {
-            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(-direction.x, direction.y);
+            RotateEnemy();
             dMovement.x = -dMovement.x;
         }
         //check if moving vertically hits a wall
         if (TileBoardManager.Board.Tiles[(int)position.x, (int)(position.y + dMovement.z)].State == 1)
         {
-            target = TileBoardManager.Board.Tiles[(int)(position.x + dMovement.x), (int)position.y].Position;
             direction = new(direction.x, -direction.y);
+            RotateEnemy();
             dMovement.z = -dMovement.z;
         }
         //move in data
@@ -105,13 +104,16 @@ public class EnemyHCrab2 : Enemy
         if (ChildShell != null)
         {
             hasShell = true;
-            //ChildShell.transform.rotation = new Quaternion().ToEuler(0, 180, 0);
+            ChildShell.transform.rotation=transform.rotation;
             OnPickShell.Invoke(transform.position);
         }
     }
 
     public override void RotateEnemy()
     {
-        transform.LookAt(new Vector3(target.x, 0, target.y));
+        if (direction == new Vector2(1, 1)) transform.rotation = Quaternion.Euler(new(0, 45, 0));
+        else if (direction == new Vector2(1, -1)) transform.rotation = Quaternion.Euler(new(0, 135, 0));
+        else if (direction == new Vector2(-1, 1)) transform.rotation = Quaternion.Euler(new(0, -45, 0));
+        else if (direction == new Vector2(-1, -1)) transform.rotation = Quaternion.Euler(new(0, -135, 0));
     }
 }

@@ -722,6 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8580db1ec6dd01649a750fc6ebeec693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {x: 0, y: 0}
   _cooldown: 3
   direction: {x: 1, y: 0}
   offset: 0
@@ -7685,6 +7686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 889781280}
   - component: {fileID: 889781279}
+  - component: {fileID: 889781281}
   m_Layer: 0
   m_Name: VFXManager
   m_TagString: Untagged
@@ -7722,6 +7724,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889781281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889781278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54d11a8c4ab6df449b9a504c6ffccf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  amountToPool: 3
 --- !u!1 &900614929
 GameObject:
   m_ObjectHideFlags: 0

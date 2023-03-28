@@ -42,7 +42,7 @@ public class SmokeVFXPool : MonoBehaviour
         if (smokeVFX != null)
         {
             smokeVFX.transform.position = new(position.x, transform.position.y, position.z);
-            smokeVFX.gameObject.SetActive(true);
+            smokeVFX.SetActive(true);
         }      
     }
 }
