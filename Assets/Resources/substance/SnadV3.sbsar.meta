@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 43b2953307a1f714b8a89f0c20637de4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 8a78fc9a86406c74780e622f6fbae1b3, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Resources/substance/SnadV3.sbsar
