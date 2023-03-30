@@ -67,7 +67,7 @@ public class EnemyHCrab2 : Enemy
             default:
                 break;
         }
-
+        RotateEnemy();
     }
 
     protected override void Update()

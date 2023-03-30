@@ -29,6 +29,7 @@ public class SimpleEnemyBehavior : Enemy
             default:
                 break;
         }
+        RotateEnemy();
     }
 
     public override void Move()
@@ -53,14 +54,14 @@ public class SimpleEnemyBehavior : Enemy
         //move in data
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
         //update position in unity
-        transform.position = new(position.x, 1, position.y);
+        transform.position = new(position.x, 1.5f, position.y);
     }
 
     public override void RotateEnemy()
     {
-        if (direction == new Vector2(1, 1)) transform.rotation = Quaternion.Euler(new(0, 225, 0));
-        else if (direction == new Vector2(1, -1)) transform.rotation = Quaternion.Euler(new(0, -45, 0));
-        else if (direction == new Vector2(-1, 1)) transform.rotation = Quaternion.Euler(new(0, 135, 0));
-        else if (direction == new Vector2(-1, -1)) transform.rotation = Quaternion.Euler(new(0, 45, 0));
+        if (direction == new Vector2(1, 1)) transform.rotation = Quaternion.Euler(new(0, 45, 0));
+        else if (direction == new Vector2(1, -1)) transform.rotation = Quaternion.Euler(new(0, 135, 0));
+        else if (direction == new Vector2(-1, 1)) transform.rotation = Quaternion.Euler(new(0, -45, 0));
+        else if (direction == new Vector2(-1, -1)) transform.rotation = Quaternion.Euler(new(0, -135, 0));
     }
 }

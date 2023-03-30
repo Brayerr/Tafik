@@ -6,6 +6,9 @@ public class AnimationsManager : MonoBehaviour
 {
     [SerializeField] Animator whiskersAnimator;
 
+    [SerializeField] Animator abilityButtonAnimator;
+
+
     private void Start()
     {
         PlayerLogic.OnWalk += SetWalkOn;
@@ -13,6 +16,8 @@ public class AnimationsManager : MonoBehaviour
         PlayerLogic.OnDig += SetDigOn;
         PlayerLogic.OnStopDig += SetDigOff;
         PlayerLogic.OnShootGrapple += SetGrappleTrigger;
+        GrappleHook2.onActivatedAbility += SetAbilityButtonTrigger;
+        UIManager.OnAbilityFillUpdated += UpdateAbilityValue;
     }
 
 
@@ -42,4 +47,13 @@ public class AnimationsManager : MonoBehaviour
         whiskersAnimator.SetTrigger("ShootGrapple");
     }
 
+    void SetAbilityButtonTrigger()
+    {
+        abilityButtonAnimator.SetTrigger("onClick");
+    }
+
+    void UpdateAbilityValue(int value)
+    {
+        abilityButtonAnimator.SetInteger("abilityFill", value);
+    }
 }

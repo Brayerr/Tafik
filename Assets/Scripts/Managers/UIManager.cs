@@ -5,47 +5,46 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI livesText;
-    [SerializeField] private Player player;
-    [SerializeField] private Button MainMenuButton;
-    [SerializeField] private Image stick;
+    public static event Action<int> OnAbilityFillUpdated;
+
+    //[SerializeField] private Button MainMenuButton;
     [SerializeField] private TextMeshProUGUI digPrecentageText;
     [SerializeField] private TextMeshProUGUI VictoryText;
-    private Vector2 mousePositionHolder;
+    [SerializeField] private Button abilityButton;
+    //[SerializeField] Sprite ability1;
+    //[SerializeField] Sprite ability2;
+    //[SerializeField] Sprite ability3;
+    //[SerializeField] Sprite ability4;
+    //[SerializeField] Sprite ability5;
 
-    private bool firstTouch = false;
 
+    [SerializeField] private int abilityFill = 0;
+    [SerializeField] private int maxAbilityFill = 200;
     bool updateScoreIsListener = false;
 
 
     private void Start()
     {
-        CloseGameOverMenu();
-        GameManager.GameOver += OpenGameOverMenu;
+        //CloseGameOverMenu();
+        //GameManager.GameOver += OpenGameOverMenu;
         digPrecentageText.text = "";
-
+        TileBoardLogic.OnConverted += UpdateAbilityFill;
+        GrappleHook2.onActivatedAbility += ResetAbilityFill;
     }
 
     void Update()
     {
-        //if (Input.GetMouseButton(0))
-        //{
-        //    if (firstTouch) RepositionStick();
-
-        //    StickLogic();
-        //}
-        //else DisableStick();
-        //livesText.text = ($"LIVES - {player.HP}");
-
         if (!updateScoreIsListener)
         {
             TileBoardLogic.OnConvert += UpdateScore;
             updateScoreIsListener = true;
         }
+
     }
 
     public void UpdateScore()
@@ -59,40 +58,31 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void OpenGameOverMenu() => MainMenuButton.gameObject.SetActive(true);
-    public void CloseGameOverMenu() => MainMenuButton.gameObject.SetActive(false);
+    //public void OpenGameOverMenu() => MainMenuButton.gameObject.SetActive(true);
+    //public void CloseGameOverMenu() => MainMenuButton.gameObject.SetActive(false);
 
-    public void StickLogic()
+
+    //public void SetButtonImage()
+    //{
+    //    if (abilityFill <= 100) abilityButton.image.sprite = ability1;
+    //    else if (abilityFill > 100 && abilityFill < 200) abilityButton.image.sprite = ability2;
+    //    else if (abilityFill == 200) abilityButton.image.sprite = ability3;
+    //}
+
+    public void UpdateAbilityFill(int tilesDug)
     {
-        if (Input.touchCount > 0 || Input.GetMouseButton(0))
-        {
-            EnableStick();
-        }
-        else DisableStick();
+        abilityFill += tilesDug;
+        if (abilityFill >= maxAbilityFill) abilityFill = maxAbilityFill;
+        OnAbilityFillUpdated.Invoke(abilityFill);
+        //SetButtonImage();
     }
 
-    public void RepositionStick()
+    public void ResetAbilityFill()
     {
-#if UNITY_EDITOR
-        stick.transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y - 60);
-#endif
-
-#if !UNITY_EDITOR
-        stick.transform.position = Input.GetTouch(0).position;
-#endif
-        firstTouch = false;
+        abilityFill = 0;
+        //SetButtonImage();
     }
 
-    public void EnableStick()
-    {
-        stick.gameObject.SetActive(true);
-    }
-
-    public void DisableStick()
-    {
-        firstTouch = true;
-        stick.gameObject.SetActive(false);
-    }
 
 
 }

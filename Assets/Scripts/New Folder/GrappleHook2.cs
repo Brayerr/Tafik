@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UIElements;
 
 public class GrappleHook2 : Ability
 {
+    public static event Action onActivatedAbility;
     public override string abilityName { get; protected set; } = "Grapple Hook";
     public override int MPUsage { get; protected set; }
 
@@ -32,6 +34,7 @@ public class GrappleHook2 : Ability
         //    p += d;
         //}
         //player.position = p;
+        onActivatedAbility?.Invoke();
     }
 }
 
