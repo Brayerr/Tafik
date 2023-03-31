@@ -8,9 +8,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 6
+  - m_ConditionMode: 3
     m_ConditionEvent: abilityFill
-    m_EventTreshold: 200
+    m_EventTreshold: 199
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7137583700435721375}
   m_Solo: 0
@@ -67,7 +67,7 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: abilityFill
-    m_Type: 3
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -127,10 +127,10 @@ AnimatorStateMachine:
     m_Position: {x: 270, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6952053436494699630}
-    m_Position: {x: 20, y: 120, z: 0}
+    m_Position: {x: -230, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7353410104907585575}
-    m_Position: {x: -220, y: 20, z: 0}
+    m_Position: {x: -220, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7137583700435721375}
     m_Position: {x: 20, y: -90, z: 0}
@@ -181,7 +181,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 0-100 Fill
+  m_Name: 50-100 Fill
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -233,7 +233,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 100-200 Fill
+  m_Name: 150-200 Fill
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

@@ -52,8 +52,9 @@ public class AnimationsManager : MonoBehaviour
         abilityButtonAnimator.SetTrigger("onClick");
     }
 
-    void UpdateAbilityValue(int value)
+    void UpdateAbilityValue(float value)
     {
-        abilityButtonAnimator.SetInteger("abilityFill", value);
+        if (value >= 200) abilityButtonAnimator.SetBool("isFilled", true);
+        else abilityButtonAnimator.SetBool("isFilled", false);
     }
 }

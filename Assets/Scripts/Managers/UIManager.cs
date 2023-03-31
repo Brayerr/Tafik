@@ -10,21 +10,19 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    public static event Action<int> OnAbilityFillUpdated;
+    public static event Action<float> OnAbilityFillUpdated;
 
     //[SerializeField] private Button MainMenuButton;
     [SerializeField] private TextMeshProUGUI digPrecentageText;
     [SerializeField] private TextMeshProUGUI VictoryText;
     [SerializeField] private Button abilityButton;
-    //[SerializeField] Sprite ability1;
-    //[SerializeField] Sprite ability2;
-    //[SerializeField] Sprite ability3;
-    //[SerializeField] Sprite ability4;
-    //[SerializeField] Sprite ability5;
+    [SerializeField] private Button abilityButtonFill;
+    
 
 
-    [SerializeField] private int abilityFill = 0;
-    [SerializeField] private int maxAbilityFill = 200;
+
+    [SerializeField] private float abilityFill = 0;
+    [SerializeField] private float maxAbilityFill = 200;
     bool updateScoreIsListener = false;
 
 
@@ -73,6 +71,7 @@ public class UIManager : MonoBehaviour
     {
         abilityFill += tilesDug;
         if (abilityFill >= maxAbilityFill) abilityFill = maxAbilityFill;
+        abilityButtonFill.image.fillAmount = abilityFill / 200;
         OnAbilityFillUpdated.Invoke(abilityFill);
         //SetButtonImage();
     }
