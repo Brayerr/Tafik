@@ -213,7 +213,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a4a51899deefa4da09b573c360da98, type: 2}
+  - {fileID: 2100000, guid: 4e07e080ea1df024badcbd4368180df6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -537,7 +537,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a4a51899deefa4da09b573c360da98, type: 2}
+  - {fileID: 2100000, guid: 4e07e080ea1df024badcbd4368180df6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -798,7 +798,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a4a51899deefa4da09b573c360da98, type: 2}
+  - {fileID: 2100000, guid: 4e07e080ea1df024badcbd4368180df6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -991,7 +991,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a4a51899deefa4da09b573c360da98, type: 2}
+  - {fileID: 2100000, guid: 4e07e080ea1df024badcbd4368180df6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1115,6 +1115,7 @@ GameObject:
   - component: {fileID: 8747534041663440298}
   - component: {fileID: 9146743362012972642}
   - component: {fileID: 9146743362012972643}
+  - component: {fileID: 950903273}
   m_Layer: 0
   m_Name: RiggedHermitCrab
   m_TagString: Untagged
@@ -1131,7 +1132,7 @@ Transform:
   m_GameObject: {fileID: 8227702074684268304}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 11.421006, y: 1, z: 5.922768}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 120, y: 120, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7789606367030750516}
@@ -1179,6 +1180,24 @@ MonoBehaviour:
   pickRadius: 5
   walkSpeed: 3
   skillCooldown: 10
+--- !u!114 &950903273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8227702074684268304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 1
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &9146743361214133216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1261,6 +1280,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7337826160530741814, guid: 81008b047f7fa97488c132b3f8167339,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e07e080ea1df024badcbd4368180df6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81008b047f7fa97488c132b3f8167339, type: 3}
 --- !u!4 &2326363822061377657 stripped

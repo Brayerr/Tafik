@@ -20,6 +20,10 @@ public class TileBoardManager : MonoBehaviour
 
     [SerializeField] List<Vector3> specialTiles = new List<Vector3>();
 
+    private void Start()
+    {
+        SpawnGrid();
+    }
 
     [ContextMenu("Spawn Grid")]
     public void SpawnGrid()

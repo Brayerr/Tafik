@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3228543859691814819}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.7733192, y: -0.8662424, z: -4.421794}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48,5 +48,6 @@ MonoBehaviour:
   VictoryText: {fileID: 0}
   abilityButton: {fileID: 0}
   abilityButtonFill: {fileID: 0}
+  pauseMenu: {fileID: 0}
   abilityFill: 0
   maxAbilityFill: 200

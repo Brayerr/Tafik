@@ -13,7 +13,7 @@ public class PlayerTouchMovement : MonoBehaviour
     [SerializeField] Vector2 stickSize = new Vector2(300, 300);
     [SerializeField] private FloatingJoystick Joystick;
     [SerializeField] PlayerLogic player;
-    [SerializeField] Button abilityButton;
+
     public Vector2 scaledMovement;
 
     private Finger MovementFinger;
@@ -83,15 +83,15 @@ public class PlayerTouchMovement : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
-        if (MovementFinger == null /*&& TouchedFinger.screenPosition.x < Screen.width / 1.3f && TouchedFinger.screenPosition.y < Screen.height / 1.2f*/ //1st method
-            && TouchedFinger.screenPosition.x < Screen.width * 0.8f //2nd method
-            || TouchedFinger.screenPosition.y > Screen.height * 0.11f) //2nd method
-        {           
+        RaycastHit2D ray = Physics2D.Raycast(TouchedFinger.screenPosition, Vector2.zero);
+
+        if (MovementFinger == null && ray.collider == null)
+        {
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
             Joystick.gameObject.SetActive(true);
             Joystick.RectTransform.sizeDelta = stickSize;
-            Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);            
+            Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
         }
     }
 
@@ -113,15 +113,4 @@ public class PlayerTouchMovement : MonoBehaviour
 
         return StartPosition;
     }
-
-    //public bool IsPointerOverUI(int fingerId)
-    //{
-    //    EventSystem eventSystem = EventSystem.current;
-    //    return eventSystem.IsPointerOverGameObject(fingerId) && eventSystem.currentSelectedGameObject != null;
-    //}
-
-    //public void OnPointerDown(PointerEventData eventData)
-    //{
-    //    ;
-    //}
 }

@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI VictoryText;
     [SerializeField] private Button abilityButton;
     [SerializeField] private Button abilityButtonFill;
-    
+    [SerializeField] private Canvas pauseMenu;
 
 
 
@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
         digPrecentageText.text = "";
         TileBoardLogic.OnConverted += UpdateAbilityFill;
         GrappleHook2.onActivatedAbility += ResetAbilityFill;
+        GameManager.OnOpenedPauseMenu += ActivatePauseMenu;
+        GameManager.OnClosedPauseMenu += DeactivatePauseMenu;
     }
 
     void Update()
@@ -82,6 +84,7 @@ public class UIManager : MonoBehaviour
         //SetButtonImage();
     }
 
-
+    public void ActivatePauseMenu() => pauseMenu.gameObject.SetActive(true);
+    public void DeactivatePauseMenu() => pauseMenu.gameObject.SetActive(false);
 
 }

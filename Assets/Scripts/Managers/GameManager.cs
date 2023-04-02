@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static event Action GameOver;
+    public static event Action OnOpenedPauseMenu;
+    public static event Action OnClosedPauseMenu;
     public static GameManager instance;
     [SerializeField] UIManager UI;
     bool victoryIsListener;
@@ -51,4 +53,21 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void RestartButtonLogic()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void OpenPauseMenu()
+    {
+        OnOpenedPauseMenu.Invoke();
+        Time.timeScale = 0;
+
+    }
+
+    public void ClosePauseMenu()
+    {
+        Time.timeScale = 1;
+        OnClosedPauseMenu.Invoke();
+    }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 824847327370918483}
   - component: {fileID: 4856181412289843088}
   - component: {fileID: 9016114400295451004}
+  - component: {fileID: 9016114400295451005}
   m_Layer: 0
   m_Name: RiggedTurtle
   m_TagString: Untagged
@@ -67,6 +68,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9016114400295451005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16223202790334697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 1
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &382519563367646634
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +238,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af5190310a158174a921350ecc76e060, type: 2}
+  - {fileID: 2100000, guid: 00f5bed814a96bc4da46ce5edd7c2ef7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -534,7 +553,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af5190310a158174a921350ecc76e060, type: 2}
+  - {fileID: 2100000, guid: 00f5bed814a96bc4da46ce5edd7c2ef7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -852,7 +871,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af5190310a158174a921350ecc76e060, type: 2}
+  - {fileID: 2100000, guid: 00f5bed814a96bc4da46ce5edd7c2ef7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1093,7 +1112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af5190310a158174a921350ecc76e060, type: 2}
+  - {fileID: 2100000, guid: 00f5bed814a96bc4da46ce5edd7c2ef7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1167,7 +1186,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af5190310a158174a921350ecc76e060, type: 2}
+  - {fileID: 2100000, guid: 00f5bed814a96bc4da46ce5edd7c2ef7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
