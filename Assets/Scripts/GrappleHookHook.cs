@@ -34,7 +34,7 @@ public class GrappleHookHook : MonoBehaviour
         }
         else
         {
-            Reel(_position);
+            Reel();
             CheckPlayer();
         }
     }
@@ -50,6 +50,11 @@ public class GrappleHookHook : MonoBehaviour
     {
         Vector2 dMovement = _direction * _hookSpeed * Time.deltaTime;
         Vector2 dPosition = new Vector2(_position.x + dMovement.x, _position.y + dMovement.y);
+        //if the next position is out of bounds, movement must be greater than 1, so move 1 instead
+        if (dPosition.x < 0 || dPosition.x > TileBoardManager.Board.Dimen.x || dPosition.y < 0 || dPosition.y > TileBoardManager.Board.Dimen.y)
+        {
+            dPosition = new Vector2(_position.x + _direction.x, _position.y + _direction.y);
+        }
         _position = dPosition;
         _distanceTraveled += dMovement.x + dMovement.y;
         transform.position = new(_position.x, 1, _position.y);
@@ -71,18 +76,30 @@ public class GrappleHookHook : MonoBehaviour
     }
 
     //pull the player to the hook
-    public void Reel(Vector2 tPos)
+    public void Reel()
     {
-        Vector2 dir = (tPos - _player.position).normalized;
-        Vector2 dMovement = dir * _reelSpeed * Time.deltaTime;
-        _player.position = new Vector2(_player.position.x + dMovement.x, _player.position.y + dMovement.y);
+        //Vector2 dir = (tPos - _player.position).normalized;
+        //calculate movement
+        Vector2 dMovement = _direction * _reelSpeed * Time.deltaTime;
+        //calculate next position
+        Vector2 dPosition = new Vector2(_player.position.x + dMovement.x, _player.position.y + dMovement.y);
+        //check if the position is outside the arena
+        if (dPosition.x < 0 || dPosition.x > TileBoardManager.Board.Dimen.x || dPosition.y < 0 || dPosition.y > TileBoardManager.Board.Dimen.y)
+        {
+            //make next position closer by normalizing it
+            dPosition = new Vector2(_position.x + _direction.x, _position.y + _direction.y);
+        }
+
+        _player.position = dPosition;
         _lineRenderer.SetPosition(0, _player.transform.position);
     }
 
     //check if player reached the hook
     void CheckPlayer()
     {
-        if ((_player.position - _position).sqrMagnitude < 1)
+        Vector2 _delta = _player.position - _position;
+        if (_delta.sqrMagnitude < (_delta + (_direction * 2)).sqrMagnitude)
+        //if ((_player.position - _position).sqrMagnitude < 1)
         {
             _player.EnableMove();
             Destroy(gameObject);

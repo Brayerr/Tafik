@@ -56,7 +56,7 @@ public class PlayerLogic : MonoBehaviour
 
     private void Update()
     {
-        if (canMove)
+        if (Alive && canMove)
         {
             if (!buildMode)
             {
@@ -67,6 +67,20 @@ public class PlayerLogic : MonoBehaviour
         }
         RotatePlayer();
         UpdateGridPosition();
+    }
+
+    private void FixedUpdate()
+    {
+        if (Alive)
+        {
+            foreach (var enemy in EnemyManager.enemies)
+            {
+                if (position.InRange(enemy.position, 1) && _state == enemy.state)
+                {
+                    KillPlayer();
+                }
+            }
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context) => move = context.ReadValue<Vector2>();
@@ -113,6 +127,11 @@ public class PlayerLogic : MonoBehaviour
     {
         //calculate movement for this frame
         Vector3 dMovement = new Vector3(Direction.x, 0, Direction.y) * speed * buildSpeedMultiplier * Time.deltaTime;
+        //find the position after movement
+        Vector2 dPosition = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
+        //leave the method if the player would leave the board
+        if (dPosition.x < 0 || dPosition.x > TileBoardManager.Board.Dimen.x || dPosition.y < 0 || dPosition.y > TileBoardManager.Board.Dimen.y)
+            return;
         //update position
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
     }
@@ -160,10 +179,17 @@ public class PlayerLogic : MonoBehaviour
 
     public void EnableMove() => canMove = true;
     public void DisableMove() => canMove = false;
+
+    public void SpawnPlayer()
+    {
+        position = new(16, 0);
+        Alive = true;
+    }
     public void KillPlayer()
     {
         Alive = false;
         Debug.Log($"Player Died {Time.realtimeSinceStartup}");
+        Invoke("SpawnPlayer", 2);
     }
 
     //logic stuff
@@ -179,17 +205,27 @@ public class PlayerLogic : MonoBehaviour
                 tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
                 return;
             }
+            //if player has suddenly moved more than 1 tile, dig the tile behind
+            if ((tile.Position - position.RoundVector()).sqrMagnitude > 1)
+            {
+                missedTile = TileBoardManager.Board.Tiles[(int)(position.x - Direction.x), (int)(position.y - Direction.y)];
+                if (missedTile.State == 2)
+                    KillPlayer();
+                OnPlayerTileChanged?.Invoke(missedTile);
+            }
+
             tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
+            //fail if player touches trail
             if (tile.State == 2)
                 KillPlayer();
+            //allow direction change
             AllowInput();
+            //enters if digging starts or ends
             if (tile.State != _state)
             {
                 _state = tile.State;
                 ToggleTrail();
-
             }
-
             OnPlayerTileChanged?.Invoke(tile);
         }
     }
@@ -211,17 +247,15 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    public void UseSkill(InputAction.CallbackContext context)
+    public void UseSkill()
     {
-        if (context.performed)
-        {
-            ability.Activate(this);
-            OnShootGrapple.Invoke();
-        }
+        ability.Activate(this);
+        OnShootGrapple.Invoke();
     }
 
     public void NewMovePlayer(Vector3 movement)
     {
+        //this is not optimal
         if (touchMovement.MovementAmount != Vector2.zero) OnWalk.Invoke();
         else OnStopWalk.Invoke();
 

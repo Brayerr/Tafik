@@ -5,7 +5,7 @@ using UnityEngine;
 
 static public class EnemyManager
 {
-    static List<Enemy> enemies = new List<Enemy>();
+    static public List<Enemy> enemies { get; private set; } = new List<Enemy>();
 
     static public event Action OnThreatenComplete;
 
@@ -26,12 +26,12 @@ static public class EnemyManager
 
     static public T FindEnemy<T>(Vector2 sPos, float range) where T : Enemy
     {
-        foreach (var item in enemies)
+        foreach (var enemy in enemies)
         {
-            if (item.GetType() == typeof(T))
+            if (enemy.GetType() == typeof(T))
             {
-                if (item.position.InRange(sPos, range))
-                    return (T)item;
+                if (enemy.position.InRange(sPos, range))
+                    return (T)enemy;
             }
         }
         return null;

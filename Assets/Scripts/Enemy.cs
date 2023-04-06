@@ -6,6 +6,7 @@ public abstract class Enemy : MonoBehaviour
 {
     public Vector2 position { get; protected set; }
     TileLogic tile;
+    public byte state { get; protected set; } = 0;
 
     public abstract void Move();
 
@@ -23,7 +24,7 @@ public abstract class Enemy : MonoBehaviour
         Move();
         //UpdateGridPosition();
     }
-    
+
     //might have problems
     virtual protected void UpdateGridPosition()
     {
