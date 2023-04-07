@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 8731828860784159108}
-  speed: 5
-  buildSpeedMultiplier: 1.5
+  speed: 9
+  buildSpeedMultiplier: 0.7
   newDirection: {x: 0, y: 0}
   buildMode: 0
   canGetInput: 1

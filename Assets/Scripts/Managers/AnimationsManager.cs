@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AnimationsManager : MonoBehaviour
 {
+    public static event Action OnGaugeFilled;
+    public static event Action OnGaugeUnfilled;
     [SerializeField] Animator abilityButtonAnimator;
 
 
@@ -21,7 +24,15 @@ public class AnimationsManager : MonoBehaviour
 
     void UpdateAbilityValue(float value)
     {
-        if (value >= 200) abilityButtonAnimator.SetBool("isFilled", true);
-        else abilityButtonAnimator.SetBool("isFilled", false);
+        if (value >= 200)
+        {
+            abilityButtonAnimator.SetBool("isFilled", true);
+            OnGaugeFilled.Invoke();
+        }
+        else
+        {
+            abilityButtonAnimator.SetBool("isFilled", false);
+            OnGaugeUnfilled.Invoke();
+        }
     }
 }

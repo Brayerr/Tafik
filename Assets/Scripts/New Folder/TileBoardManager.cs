@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 public class TileBoardManager : MonoBehaviour
 {
+
     [SerializeField] float space; //space between instances
     [SerializeField] Vector2Int dimensions;
 
@@ -23,6 +25,7 @@ public class TileBoardManager : MonoBehaviour
     private void Start()
     {
         SpawnGrid();
+        TileBoardLogic.OnCreatedList += ComparePickupPositions;
     }
 
     [ContextMenu("Spawn Grid")]
@@ -97,7 +100,8 @@ public class TileBoardManager : MonoBehaviour
 
     public void DrawTrail(TileLogic t)
     {
-        _tileGraphics[t.Position.x, t.Position.y].transform.Translate(Vector3.forward);
+        //_tileGraphics[t.Position.x, t.Position.y].transform.Translate(Vector3.forward);
+        _tileGraphics[t.Position.x, t.Position.y].transform.DOMoveY(0, 1.5f);
     }
 
     public void DrawFill()
@@ -107,9 +111,23 @@ public class TileBoardManager : MonoBehaviour
             for (int j = 0; j < dimensions.x; j++)
             {
                 if (Board.Tiles[j, i].State == 1)
-                    _tileGraphics[j, i].transform.position = new Vector3(j + 0.5f, 0, i + 0.5f);
+                {
+                    _tileGraphics[j, i].transform.DOMoveY(0, 1f);
+                    //_tileGraphics[j, i].transform.position = new Vector3(j + 0.5f, 0, i + 0.5f);
+                }
             }
         }
+    }
+
+    void ComparePickupPositions(List<Vector2Int> tilesPositions)
+    {        
+        foreach (var item in tilesPositions)
+        {
+            foreach (var pickup in PickupManager.pickupList)
+            {
+                if (pickup.position == item) pickup.gameObject.SetActive(true);
+            }
+        }       
     }
 
     // area closer

@@ -14,6 +14,7 @@ public class PlayerAnimations : MonoBehaviour
         PlayerLogic.OnDig += SetDigOn;
         PlayerLogic.OnStopDig += SetDigOff;
         PlayerLogic.OnShootGrapple += SetGrappleTrigger;
+        PlayerLogic.OnPlayerDied += SetDeathTrigger;
     }
 
     void SetWalkOn()
@@ -39,6 +40,11 @@ public class PlayerAnimations : MonoBehaviour
     void SetGrappleTrigger()
     {
         anim.SetTrigger("ShootGrapple");
+    }
+
+    void SetDeathTrigger()
+    {
+        anim.SetTrigger("isDead");
     }
 
 }
