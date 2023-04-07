@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8731828860784159109}
   - component: {fileID: 8731828860784159108}
   - component: {fileID: 8731828860784159117}
-  - component: {fileID: 2073972420}
+  - component: {fileID: 1445510319587004600}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Player
@@ -166,7 +166,7 @@ MonoBehaviour:
   player: {fileID: 8731828860784159109}
   scaledMovement: {x: 0, y: 0}
   MovementAmount: {x: 0, y: 0}
---- !u!114 &2073972420
+--- !u!114 &1445510319587004600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -349,6 +349,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1002636349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497406034447859244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56037418c5863d54b8c7e927f8121433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!4 &9126273516351923350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a52e2a637c4c6ed47966dee8b08874b3,
