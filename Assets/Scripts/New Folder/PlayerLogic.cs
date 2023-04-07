@@ -22,8 +22,9 @@ public class PlayerLogic : MonoBehaviour
     TileLogic tile;
     TileLogic missedTile;
     int _state = 1;
-    [SerializeField] Ability ability;
+    private IEnumerator respawnCoroutine;
 
+    [SerializeField] Ability ability;
     [SerializeField] public float speed;
     [SerializeField] float buildSpeedMultiplier = 1;
     [SerializeField] Vector2 newDirection;
@@ -39,6 +40,8 @@ public class PlayerLogic : MonoBehaviour
 
     static public event Action OnTrailStart;
     static public event Action OnTrailEnd;
+    static public event Action OnPlayerDied;
+
 
     public Vector2 Direction { get; private set; }
 
@@ -47,6 +50,7 @@ public class PlayerLogic : MonoBehaviour
     {
         position = new Vector2(transform.position.x, transform.position.z);
 
+        respawnCoroutine = SpawnPlayerDelayed(2);
         //tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
 
         //PlayerPosition.AreaFilled += BuildEnd;
@@ -75,7 +79,7 @@ public class PlayerLogic : MonoBehaviour
         {
             foreach (var enemy in EnemyManager.enemies)
             {
-                if (position.InRange(enemy.position, 1) && _state == enemy.state)
+                if (position.InRange(enemy.position, .5f) && _state == enemy.state)
                 {
                     KillPlayer();
                 }
@@ -184,12 +188,16 @@ public class PlayerLogic : MonoBehaviour
     {
         position = new(16, 0);
         Alive = true;
+        if (Alive) Debug.Log("Alive");
     }
     public void KillPlayer()
     {
+        if (!Alive) return;
+        OnPlayerDied.Invoke();
         Alive = false;
+        BuildEnd();
         Debug.Log($"Player Died {Time.realtimeSinceStartup}");
-        Invoke("SpawnPlayer", 2);
+        StartCoroutine(respawnCoroutine);
     }
 
     //logic stuff
@@ -253,6 +261,12 @@ public class PlayerLogic : MonoBehaviour
         OnShootGrapple.Invoke();
     }
 
+    IEnumerator SpawnPlayerDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SpawnPlayer();
+    }
+
     public void NewMovePlayer(Vector3 movement)
     {
         //this is not optimal
@@ -273,6 +287,12 @@ public class PlayerLogic : MonoBehaviour
         if (dMovement.sqrMagnitude > 1)
         {
             missedTile = TileBoardManager.Board.Tiles[(int)(position.x - Direction.x), (int)(position.y - Direction.y)];
+        }
+
+        //compare pos to active pickup pos ,if true interact with it. 
+        foreach (var item in PickupManager.pickupList)
+        {
+            if (item.isActiveAndEnabled && item.position.x == (int)position.x && item.position.y == (int)position.y) item.InteractWithPickup();
         }
     }
 

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class TileLogic
 {
-    public int State { get; private set; } // 0=empty 1=Dug 2=trail  -1=enemy area
+    /// <summary>
+    /// 0 = High Surface, 1 = Dug Surface, 2 = trail,  -1 = enemy area
+    /// </summary>
+    public int State { get; private set; }
     public Vector2Int Position { get; }
 
     public TileLogic()

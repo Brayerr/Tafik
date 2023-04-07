@@ -8,12 +8,14 @@ public class TileBoardLogic
     static public int TotalTiles { get; private set; }
     static public int DugTiles { get; private set; }
     static public byte DugPrecentage { get; private set; }
-    
+
     public Vector2Int Dimen { get; }
     public TileLogic[,] Tiles { get; }
+    private List<Vector2Int> convertedTiles = new List<Vector2Int>();
 
     static public event Action OnConvert;
     static public event Action<int> OnConverted;
+    static public event Action<List<Vector2Int>> OnCreatedList;
 
     public TileBoardLogic(Vector2Int d)
     {
@@ -84,8 +86,17 @@ public class TileBoardLogic
         SetTileBad(posX, posY - 1);
     }
 
+    public void CollapseTrail(int posX, int posY)
+    {
+        if (Tiles[posX, posY].State != 2)
+            return;
+        //Tiles[posX,posY]; turn tile back to normal
+        
+    }
+
     public void Convert()
     {
+        convertedTiles.Clear();
         int count = 0;
         foreach (var item in Tiles)
         {
@@ -93,6 +104,7 @@ public class TileBoardLogic
             {
                 item.SetDug();
                 count++;
+                convertedTiles.Add(item.Position);
             }
             if (item.State == -1)
                 item.SetState(0);
@@ -101,6 +113,7 @@ public class TileBoardLogic
         //Debug.Log($"{DugTiles} / {TotalTiles} - {DugTiles * 100 / TotalTiles} %"); //prints dig progress, but includes outer area
         OnConvert.Invoke();
         OnConverted.Invoke(count);
+        OnCreatedList.Invoke(convertedTiles);
     }
 
     static public void AddDugTile()

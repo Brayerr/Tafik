@@ -28,10 +28,13 @@ public abstract class Enemy : MonoBehaviour
     //might have problems
     virtual protected void UpdateGridPosition()
     {
-        if (tile != TileBoardManager.Board.Tiles[(int)position.x, (int)position.y].SetState(-1))
+        if (tile != TileBoardManager.Board.Tiles[(int)position.x, (int)position.y])
         {
-            tile.SetState(0);
             tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
+            if (tile.State == 2)
+            {
+
+            }
         }
 
     }

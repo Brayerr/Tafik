@@ -3676,6 +3676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPos
       objectReference: {fileID: 0}
+    - target: {fileID: 8729891841859202772, guid: f24c6cedc5ea74c46ae57c25769fca62,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbb53739a84d0ac439cd2bcd8728109e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f24c6cedc5ea74c46ae57c25769fca62, type: 3}
 --- !u!1001 &8533720965723145001
