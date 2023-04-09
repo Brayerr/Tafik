@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
 using DG.Tweening;
@@ -14,7 +13,13 @@ public class TileBoardManager : MonoBehaviour
 
     [SerializeField] UnityEngine.GameObject EmptyPrefabObject;
     [SerializeField] UnityEngine.GameObject FilledPrefabObject;
-    [SerializeField] Sprite[] gridSprites = new Sprite[1280];
+
+    [SerializeField] float trailCollapseSpeed = 0.06f;
+    [SerializeField] Vector2 burnRange = new(0.7f, 0.8f);
+    [SerializeField] Vector3 collapseTimes = new(0.5f, 0.5f, 0.5f);
+    [SerializeField] float fillTime = 1.5f;
+
+
     Vector3 tileRot = new(90, 0, 0);
 
 
@@ -25,6 +30,8 @@ public class TileBoardManager : MonoBehaviour
 
     IEnumerator CollapseEnumarator;
     static public event Action<int, int> OnCollapseStep;
+    Sequence fillSequence;
+    Sequence collapseSequence;
 
     private void Start()
     {
@@ -105,8 +112,8 @@ public class TileBoardManager : MonoBehaviour
 
     public void DrawTrail(TileLogic t)
     {
-        //_tileGraphics[t.Position.x, t.Position.y].transform.Translate(Vector3.forward);
-        _tileGraphics[t.Position.x, t.Position.y].transform.DOMoveY(0, .3f);
+        //_tileGraphics[t.Position.x, t.Position.y].transform.Translate(new(0, 0, 0.5f));
+        _tileGraphics[t.Position.x, t.Position.y].transform.DOMoveY(burnRange.y, 1);
     }
 
     public void DrawFill()
@@ -115,9 +122,11 @@ public class TileBoardManager : MonoBehaviour
         {
             for (int j = 0; j < dimensions.x; j++)
             {
-                if (Board.Tiles[j, i].State == 1)
+                if (Board.Tiles[j, i].State == 1 && _tileGraphics[j, i].transform.position.y != 0)
                 {
-                    _tileGraphics[j, i].transform.DOMoveY(0, 1f).SetEase(Ease.OutExpo);
+                    fillSequence = DOTween.Sequence().Append(_tileGraphics[j, i].transform.DOMoveY(burnRange.x, 0))
+                        .Append(_tileGraphics[j, i].transform.DOMoveY(0, fillTime));
+                    //_tileGraphics[j, i].transform.DOMoveY(0, 1f).SetEase(Ease.OutExpo);
                     //_tileGraphics[j, i].transform.position = new Vector3(j + 0.5f, 0, i + 0.5f);
                 }
             }
@@ -127,14 +136,19 @@ public class TileBoardManager : MonoBehaviour
     public void TileCollapseVisual(int posX, int posY)
     {
         _tileGraphics[posX, posY].transform.DOKill();
-        _tileGraphics[posX, posY].transform.DOMoveY(1, 0.7f).SetEase(Ease.OutElastic);
+        //_tileGraphics[posX, posY].transform.DOMoveY(1, 1.5f).SetEase(Ease.OutElastic);
+        //DOTween.Sequence(_tileGraphics[posX, posY])
+        collapseSequence = DOTween.Sequence().Append(_tileGraphics[posX, posY].transform.DOMoveY((burnRange.x + burnRange.y) / 2, collapseTimes.x))
+            .AppendInterval(collapseTimes.y)
+            .Append(_tileGraphics[posX, posY].transform.DOMoveY(1, collapseTimes.z));
+        collapseSequence.Play();
         CollapseEnumarator = CollapseDelay(posX, posY);
         StartCoroutine(CollapseEnumarator);
     }
 
     IEnumerator CollapseDelay(int posX, int posY)
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(trailCollapseSpeed);
         OnCollapseStep.Invoke(posX, posY);
 
     }
@@ -145,7 +159,7 @@ public class TileBoardManager : MonoBehaviour
         {
             foreach (var pickup in PickupManager.pickupList)
             {
-                if (pickup.position == item) pickup.gameObject.SetActive(true);
+                if (pickup.position == item) pickup.RevealPickup();
             }
         }
     }
