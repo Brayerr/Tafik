@@ -48,7 +48,7 @@ public class SandVFXPool : MonoBehaviour
 
     void InvokeVFX(TileLogic t)
     {
-        if (player.buildMode)
+        if (PlayerLogic.buildMode)
         {
             GameObject sandVFX = GetPooledObject();
             if (sandVFX != null)

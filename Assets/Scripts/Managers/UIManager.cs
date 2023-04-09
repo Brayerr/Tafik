@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
         GameManager.OnOpenedPauseMenu += ActivatePauseMenu;
         GameManager.OnClosedPauseMenu += DeactivatePauseMenu;
         PlayerLogic.OnHPChanged += UpdateHeartsAmount;
+        GameManager.OnFakeRestart += FakeRestart;
         currentHearts = 3;
 
     }
@@ -144,5 +145,9 @@ public class UIManager : MonoBehaviour
     public void ActivatePauseMenu() => pauseMenu.gameObject.SetActive(true);
     public void DeactivatePauseMenu() => pauseMenu.gameObject.SetActive(false);
 
-
+    void FakeRestart()
+    {
+        VictoryText.gameObject.SetActive(false);
+        UpdateHeartsAmount(true);
+    }
 }

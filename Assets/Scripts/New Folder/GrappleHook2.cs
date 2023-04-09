@@ -23,7 +23,7 @@ public class GrappleHook2 : Ability
 
     public override void Activate(PlayerLogic player)
     {
-        if(isGaugeFull)
+        if(isGaugeFull && PlayerLogic.buildMode)
         {
             player.DisableMove();
             //player.BuildEnd();

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 90263416e49176f4b9391becfc15029f
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 7012cda8e09981c40988b24691e58ad5, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Resources/substance/Sand3_09_04_DirectX (1).sbsar

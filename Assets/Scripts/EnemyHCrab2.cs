@@ -43,7 +43,7 @@ public class EnemyHCrab2 : Enemy
         //move in data
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
         //update position in unity
-        transform.position = new(position.x, 1, position.y);
+        transform.position = new(position.x, 2, position.y);
 
     }
 

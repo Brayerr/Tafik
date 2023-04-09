@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartButtonLogic()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        OnFakeRestart.Invoke();
         ClosePauseMenu();
     }
 

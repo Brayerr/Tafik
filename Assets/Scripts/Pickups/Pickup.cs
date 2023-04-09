@@ -18,6 +18,7 @@ public class Pickup : MonoBehaviour
     {
         transform.position = new Vector3(position.x, transform.position.y, position.y);
         IdlePickup();
+        GameManager.OnFakeRestart += FakeRestart;
     }
 
 
@@ -69,9 +70,14 @@ public class Pickup : MonoBehaviour
         revealed = true;
         yield return onReveal2.WaitForCompletion();
         onReveal.Kill();
-        onReveal2.Kill();
-        
+        onReveal2.Kill();        
     }
 
-
+    void FakeRestart()
+    {
+        revealed = false;
+        pickedUp = false;
+        transform.position = new Vector3(position.x, transform.position.y, position.y);
+        gameObject.SetActive(false);
+    }
 }

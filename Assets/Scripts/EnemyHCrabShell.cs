@@ -26,7 +26,7 @@ public class EnemyHCrabShell : Enemy
     public bool PickUp(Transform parent, EnemyHCrab2 crab)
     {
         crabParent = crab;
-        transform.position = new Vector3(crabParent.transform.position.x, crabParent.transform.position.y + 1, crabParent.transform.position.z);
+        transform.position = new Vector3(crabParent.transform.position.x, crabParent.transform.position.y, crabParent.transform.position.z);
         transform.SetParent(parent);
         //transform.localPosition = Vector3.up;
         return true;

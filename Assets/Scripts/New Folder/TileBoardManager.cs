@@ -38,6 +38,7 @@ public class TileBoardManager : MonoBehaviour
         SpawnGrid();
         TileBoardLogic.OnCreatedList += ComparePickupPositions;
         TileBoardLogic.OnTileCollapse += TileCollapseVisual;
+        GameManager.OnFakeRestart += FakeRestart;
     }
 
     [ContextMenu("Spawn Grid")]
@@ -162,6 +163,19 @@ public class TileBoardManager : MonoBehaviour
                 if (pickup.position == item) pickup.RevealPickup();
             }
         }
+    }
+
+    void FakeRestart()
+    {
+        foreach (var item in _tileGraphics)
+        {
+            Destroy(item);
+        }
+        PlayerLogic.OnTrailStart -= StartDrawTrail;
+        PlayerLogic.OnTrailEnd -= EndDrawTrail;
+
+        TileBoardLogic.OnConvert -= DrawFill;
+        SpawnGrid();
     }
 
     // area closer

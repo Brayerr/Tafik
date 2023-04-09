@@ -40,7 +40,7 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] float buildSpeedMultiplier = 1;
     [SerializeField] Vector2 newDirection;
-    public bool buildMode = false;
+    public static bool buildMode = false;
     [SerializeField] bool canGetInput = true;
     [SerializeField] bool canMove = true; //override
 
@@ -67,6 +67,7 @@ public class PlayerLogic : MonoBehaviour
         GrappleHook2.onActivatedAbility += ResetAbilityFill;
         ResetHealth();
         TileBoardLogic.OnTileCollapse += CheckIfTileCollapsed;
+        GameManager.OnFakeRestart += FakeRestart;
         //tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
 
         //PlayerPosition.AreaFilled += BuildEnd;
@@ -387,5 +388,12 @@ public class PlayerLogic : MonoBehaviour
             KillPlayer();
             Debug.Log($"trail collapse killed player");
         }
+    }
+
+    void FakeRestart()
+    {
+        UpdateAbilityFill(0);
+        ResetHealth();
+        SpawnPlayer();
     }
 }
