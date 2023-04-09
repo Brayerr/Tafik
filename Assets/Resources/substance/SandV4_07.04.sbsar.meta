@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 86027a96d1d7a4e448c76425cc7fbe9e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: edd27a6c44b38c940a18a156949eafd1, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Resources/substance/SandV4_07.04.sbsar

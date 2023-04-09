@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd17767d9810d34290161734b081696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiskersAnimator: {fileID: 0}
   abilityButtonAnimator: {fileID: 0}

@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sand
-  m_Shader: {fileID: -6465566751694194690, guid: 2995f4b1a377d944987e6c2bd1b07f53,
+  m_Shader: {fileID: -6465566751694194690, guid: 199e21c217f3c6342ad72ca0ecd54c0f,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,7 +34,15 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 8acf4cf94b1865346befed82285c26a7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture:
+        m_Texture: {fileID: 2800000, guid: 8091cb1f08c080848b57db733496d886, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
         m_Texture: {fileID: 2800000, guid: 8091cb1f08c080848b57db733496d886, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -53,9 +61,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _Float: 1
+    - _Metallic: 0
+    - _Occlusion: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SHITT: 0
     - _Scale: 0.05
+    - _Shit: 0
+    - _Smoothness: 0
     m_Colors:
     - _Color: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 1}
   m_BuildTextureStacks: []
