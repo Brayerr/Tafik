@@ -10,7 +10,7 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    public static event Action<float> OnAbilityFillUpdated;
+    
 
     //[SerializeField] private Button MainMenuButton;
     [SerializeField] private TextMeshProUGUI digPrecentageText;
@@ -19,10 +19,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button abilityButtonFill;
     [SerializeField] private Canvas pauseMenu;
 
-
+    [SerializeField] Image[] hearts = new Image[5];
+    [SerializeField] int currentHearts;
 
     [SerializeField] private float abilityFill = 0;
-    [SerializeField] private float maxAbilityFill = 200;
+
     bool updateScoreIsListener = false;
 
 
@@ -31,10 +32,12 @@ public class UIManager : MonoBehaviour
         //CloseGameOverMenu();
         //GameManager.GameOver += OpenGameOverMenu;
         digPrecentageText.text = "";
-        TileBoardLogic.OnConverted += UpdateAbilityFill;
-        GrappleHook2.onActivatedAbility += ResetAbilityFill;
+        PlayerLogic.OnAbilityFillUpdated += UpdateAbilityFill;
         GameManager.OnOpenedPauseMenu += ActivatePauseMenu;
         GameManager.OnClosedPauseMenu += DeactivatePauseMenu;
+        PlayerLogic.OnHPChanged += UpdateHeartsAmount;
+        currentHearts = 3;
+
     }
 
     void Update()
@@ -61,30 +64,85 @@ public class UIManager : MonoBehaviour
     //public void OpenGameOverMenu() => MainMenuButton.gameObject.SetActive(true);
     //public void CloseGameOverMenu() => MainMenuButton.gameObject.SetActive(false);
 
-
-    //public void SetButtonImage()
-    //{
-    //    if (abilityFill <= 100) abilityButton.image.sprite = ability1;
-    //    else if (abilityFill > 100 && abilityFill < 200) abilityButton.image.sprite = ability2;
-    //    else if (abilityFill == 200) abilityButton.image.sprite = ability3;
-    //}
-
-    public void UpdateAbilityFill(int tilesDug)
+    void UpdateAbilityFill(float newAbilityFill)
     {
-        abilityFill += tilesDug;
-        if (abilityFill >= maxAbilityFill) abilityFill = maxAbilityFill;
+        abilityFill = newAbilityFill;
         abilityButtonFill.image.fillAmount = abilityFill / 200;
-        OnAbilityFillUpdated.Invoke(abilityFill);
-        //SetButtonImage();
     }
 
-    public void ResetAbilityFill()
+    void UpdateHeartsAmount(bool value)
     {
-        abilityFill = 0;
-        //SetButtonImage();
+        if (value) currentHearts++;
+        else currentHearts--;
+
+        switch(currentHearts)
+        {
+            case 0:
+                {
+                    for (int i = 0; i < hearts.Length; i++)
+                    {
+                        hearts[i].gameObject.SetActive(false);
+                    }
+                    break;
+                }
+            case 1:
+                {
+                    hearts[0].gameObject.SetActive(true);
+                    for (int i = 1; i < hearts.Length; i++)
+                    {
+                        hearts[i].gameObject.SetActive(false);
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    hearts[0].gameObject.SetActive(true);
+                    hearts[1].gameObject.SetActive(true);
+                    for (int i = 2; i < hearts.Length; i++)
+                    {
+                        hearts[i].gameObject.SetActive(false);
+                    }
+                    break;
+                }
+            case 3:
+                {
+                    hearts[0].gameObject.SetActive(true);
+                    hearts[1].gameObject.SetActive(true);
+                    hearts[2].gameObject.SetActive(true);
+                    for (int i = 3; i < hearts.Length; i++)
+                    {
+                        hearts[i].gameObject.SetActive(false);
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    hearts[0].gameObject.SetActive(true);
+                    hearts[1].gameObject.SetActive(true);
+                    hearts[2].gameObject.SetActive(true);
+                    hearts[3].gameObject.SetActive(true);
+                    for (int i = 4; i < hearts.Length; i++)
+                    {
+                        hearts[i].gameObject.SetActive(false);
+                    }
+                    break;
+                }
+            case 5:
+                {
+                    hearts[0].gameObject.SetActive(true);
+                    hearts[1].gameObject.SetActive(true);
+                    hearts[2].gameObject.SetActive(true);
+                    hearts[3].gameObject.SetActive(true);
+                    hearts[4].gameObject.SetActive(true);                   
+                    break;
+                }
+
+        }
     }
+    
 
     public void ActivatePauseMenu() => pauseMenu.gameObject.SetActive(true);
     public void DeactivatePauseMenu() => pauseMenu.gameObject.SetActive(false);
+
 
 }

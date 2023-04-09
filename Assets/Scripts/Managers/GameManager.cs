@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static event Action GameOver;
     public static event Action OnOpenedPauseMenu;
     public static event Action OnClosedPauseMenu;
+    public static event Action OnFakeRestart;
     public static GameManager instance;
     [SerializeField] UIManager UI;
     bool victoryIsListener;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     public void RestartButtonLogic()
     {
         SceneManager.LoadScene(0);
+        ClosePauseMenu();
     }
 
     public void OpenPauseMenu()

@@ -13,7 +13,7 @@ public class AnimationsManager : MonoBehaviour
     private void Start()
     {      
         GrappleHook2.onActivatedAbility += SetAbilityButtonTrigger;
-        UIManager.OnAbilityFillUpdated += UpdateAbilityValue;
+        PlayerLogic.OnAbilityFillUpdated += UpdateAbilityValue;
     }
 
 
@@ -29,7 +29,7 @@ public class AnimationsManager : MonoBehaviour
             abilityButtonAnimator.SetBool("isFilled", true);
             OnGaugeFilled.Invoke();
         }
-        else
+        else if (value < 200)
         {
             abilityButtonAnimator.SetBool("isFilled", false);
             OnGaugeUnfilled.Invoke();

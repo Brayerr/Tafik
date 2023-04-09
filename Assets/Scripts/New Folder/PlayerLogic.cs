@@ -24,6 +24,18 @@ public class PlayerLogic : MonoBehaviour
     int _state = 1;
     private IEnumerator respawnCoroutine;
 
+    [Header("Atributes")]
+    private int maxHP = 3;
+    private int currentHP;
+    private float maxEXP;
+    private float currentEXP;
+    private float maxAbilityFill = 200;
+    private float abilityFill = 0;
+    public static event Action<float> OnAbilityFillUpdated;
+    public static event Action<bool> OnHPChanged;
+
+
+
     [SerializeField] Ability ability;
     [SerializeField] public float speed;
     [SerializeField] float buildSpeedMultiplier = 1;
@@ -51,6 +63,10 @@ public class PlayerLogic : MonoBehaviour
         position = new Vector2(transform.position.x, transform.position.z);
 
         respawnCoroutine = SpawnPlayerDelayed(2);
+        TileBoardLogic.OnConverted += UpdateAbilityFill;
+        GrappleHook2.onActivatedAbility += ResetAbilityFill;
+        ResetHealth();
+        TileBoardLogic.OnTileCollapse += CheckIfTileCollapsed;
         //tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
 
         //PlayerPosition.AreaFilled += BuildEnd;
@@ -200,6 +216,8 @@ public class PlayerLogic : MonoBehaviour
         BuildEnd();
         Debug.Log($"Player Died {Time.realtimeSinceStartup}");
         StartCoroutine("SpawnPlayerDelayed",2);
+        currentHP--;
+        OnHPChanged.Invoke(false);
     }
 
     //logic stuff
@@ -342,5 +360,32 @@ public class PlayerLogic : MonoBehaviour
             canGetInput = false;
         }
         AutoMovePlayer();
+    }
+
+    public void UpdateAbilityFill(int tilesDug)
+    {
+        abilityFill += tilesDug;
+        if (abilityFill >= maxAbilityFill) abilityFill = maxAbilityFill;
+        
+        OnAbilityFillUpdated.Invoke(abilityFill);
+    }
+
+    public void ResetAbilityFill()
+    {
+        abilityFill = 0;
+    }
+
+    public void ResetHealth()
+    {
+        currentHP = maxHP;
+    }
+
+    void CheckIfTileCollapsed(int x, int y)
+    {
+        if (tile.Position.x == x && tile.Position.y == y)
+        {
+            KillPlayer();
+            Debug.Log($"trail collapse killed player");
+        }
     }
 }
