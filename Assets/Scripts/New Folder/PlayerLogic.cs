@@ -82,6 +82,7 @@ public class PlayerLogic : MonoBehaviour
                 if (position.InRange(enemy.position, .5f) && _state == enemy.state)
                 {
                     KillPlayer();
+                    Debug.Log($"{enemy} killed player");
                 }
             }
         }
@@ -195,9 +196,10 @@ public class PlayerLogic : MonoBehaviour
         if (!Alive) return;
         OnPlayerDied.Invoke();
         Alive = false;
+        OnPlayerTileChanged = null;
         BuildEnd();
         Debug.Log($"Player Died {Time.realtimeSinceStartup}");
-        StartCoroutine(respawnCoroutine);
+        StartCoroutine("SpawnPlayerDelayed",2);
     }
 
     //logic stuff
@@ -218,14 +220,22 @@ public class PlayerLogic : MonoBehaviour
             {
                 missedTile = TileBoardManager.Board.Tiles[(int)(position.x - Direction.x), (int)(position.y - Direction.y)];
                 if (missedTile.State == 2)
+                {
                     KillPlayer();
+                    Debug.Log($"tile behind killed player");
+                }
                 OnPlayerTileChanged?.Invoke(missedTile);
             }
 
             tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
             //fail if player touches trail
             if (tile.State == 2)
+            {
                 KillPlayer();
+                Debug.Log($"{tile.Position}");
+                Debug.Log($"trail killed player");
+
+            }
             //allow direction change
             AllowInput();
             //enters if digging starts or ends
@@ -242,10 +252,12 @@ public class PlayerLogic : MonoBehaviour
     {
         switch (_state)
         {
+            //entered high tile, start digging
             case 0:
                 OnTrailStart?.Invoke();
                 BuildStart();
                 break;
+            //entered dug tile, stop digging
             case 1:
                 OnTrailEnd?.Invoke();
                 BuildEnd();
@@ -265,6 +277,7 @@ public class PlayerLogic : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SpawnPlayer();
+        
     }
 
     public void NewMovePlayer(Vector3 movement)
@@ -292,7 +305,12 @@ public class PlayerLogic : MonoBehaviour
         //compare pos to active pickup pos ,if true interact with it. 
         foreach (var item in PickupManager.pickupList)
         {
-            if (item.isActiveAndEnabled && item.position.x == (int)position.x && item.position.y == (int)position.y) item.InteractWithPickup();
+            if (item.isActiveAndEnabled
+                && item.position.x == (int)position.x && item.position.y == (int)position.y
+                || item.position.x == (int)position.x + 1 && item.position.y == (int)position.y + 1
+                || item.position.x == (int)position.x - 1 && item.position.y == (int)position.y - 1
+                || item.position.x == (int)position.x - 1 && item.position.y == (int)position.y + 1
+                || item.position.x == (int)position.x + 1 && item.position.y == (int)position.y - 1) item.InteractWithPickup();
         }
     }
 

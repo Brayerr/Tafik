@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public abstract class Enemy : MonoBehaviour
     public Vector2 position { get; protected set; }
     TileLogic tile;
     public byte state { get; protected set; } = 0;
+
+    static public event Action<int,int> OnEnemyTrailCollision; 
 
     public abstract void Move();
 
@@ -22,7 +25,7 @@ public abstract class Enemy : MonoBehaviour
     virtual protected void Update()
     {
         Move();
-        //UpdateGridPosition();
+        UpdateGridPosition();
     }
 
     //might have problems
@@ -33,7 +36,7 @@ public abstract class Enemy : MonoBehaviour
             tile = TileBoardManager.Board.Tiles[(int)position.x, (int)position.y];
             if (tile.State == 2)
             {
-
+                OnEnemyTrailCollision.Invoke(tile.Position.x, tile.Position.y);
             }
         }
 

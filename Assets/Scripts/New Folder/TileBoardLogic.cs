@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TileBoardLogic
@@ -16,6 +17,7 @@ public class TileBoardLogic
     static public event Action OnConvert;
     static public event Action<int> OnConverted;
     static public event Action<List<Vector2Int>> OnCreatedList;
+    static public event Action<int, int> OnTileCollapse;
 
     public TileBoardLogic(Vector2Int d)
     {
@@ -40,6 +42,8 @@ public class TileBoardLogic
         PlayerLogic.OnTrailStart += StartTrail;
         PlayerLogic.OnTrailEnd += EndTrail;
         EnemyManager.OnThreatenComplete += Convert;
+        Enemy.OnEnemyTrailCollision += CollapseTrail;
+        TileBoardManager.OnCollapseStep += CollapseTrail2;
     }
     public void Frame()
     {
@@ -90,8 +94,16 @@ public class TileBoardLogic
     {
         if (Tiles[posX, posY].State != 2)
             return;
-        //Tiles[posX,posY]; turn tile back to normal
-        
+        Tiles[posX, posY].SetState(0); //turn tile back to normal
+        OnTileCollapse.Invoke(posX, posY);
+    }
+
+    void CollapseTrail2(int posX, int posY)
+    {
+        CollapseTrail(posX + 1, posY);
+        CollapseTrail(posX - 1, posY);
+        CollapseTrail(posX, posY + 1);
+        CollapseTrail(posX, posY - 1);
     }
 
     public void Convert()

@@ -20,8 +20,8 @@ public class SandVFXPool : MonoBehaviour
             sandVFX.gameObject.SetActive(false);
             pooledObjects.Add(sandVFX);
         }
-
-        PlayerLogic.OnPlayerTileChanged += InvokeVFX;
+        PlayerLogic.OnTrailStart += UseVFX;
+        PlayerLogic.OnTrailEnd += StopVFX;
     }
 
     public GameObject GetPooledObject()
@@ -34,6 +34,16 @@ public class SandVFXPool : MonoBehaviour
             }
         }
         return null;
+    }
+
+    void UseVFX()
+    {
+        PlayerLogic.OnPlayerTileChanged += InvokeVFX;
+    }
+
+    void StopVFX()
+    {
+        PlayerLogic.OnPlayerTileChanged -= InvokeVFX;
     }
 
     void InvokeVFX(TileLogic t)
