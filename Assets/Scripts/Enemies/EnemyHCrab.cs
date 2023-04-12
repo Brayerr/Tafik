@@ -30,12 +30,14 @@ public class EnemyHCrab : Enemy
         {
             direction = new(-direction.x, direction.y);
             dMovement.x = -dMovement.x;
+            RotateEnemy();
         }
         //check if moving vertically hits a wall
         if (TileBoardManager.Board.Tiles[(int)position.x, (int)(position.y + dMovement.z)].State == 1)
         {
             direction = new(direction.x, -direction.y);
             dMovement.z = -dMovement.z;
+            RotateEnemy();
         }
         //move in data
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
@@ -48,6 +50,7 @@ public class EnemyHCrab : Enemy
     {
         base.Start();
         RotateActions();
+        speed = walkSpeed;
     }
 
     protected override void Update()
@@ -63,33 +66,40 @@ public class EnemyHCrab : Enemy
 
     }
 
+    // a basic rotation of algorithms
+    // actions should be made a new data structure so they could be made easily by designers
+    // speed, action index and duration
     void RotateActions()
     {
-        _rotationIndex++;
-        if (_rotationIndex > 1) _rotationIndex = 0;
-        switch (_rotationIndex)
-        {
-            //move
-            case 0:
-                speed = walkSpeed;
-                actionDuration = Random.Range((int)(movementDurationRange.x * 10), (int)(movementDurationRange.y * 10)) / 10;
-                if (Time.time - _skillLatestUse > skillCooldown)
-                {
-                    _skillLatestUse = Time.time;
-                    speed = runSpeed;
-                    actionDuration /= 2;
-                }
-                break;
+        //_rotationIndex++;
+        //if (_rotationIndex > 1) _rotationIndex = 0;
+        //switch (_rotationIndex)
+        //{
+        //    //move
+        //    case 0:
+        //        speed = walkSpeed;
+        //        actionDuration = Random.Range((int)(movementDurationRange.x * 10), (int)(movementDurationRange.y * 10)) / 10;
+        //        if (Time.time - _skillLatestUse > skillCooldown)
+        //        {
+        //            _skillLatestUse = Time.time;
+        //            speed = runSpeed;
+        //            actionDuration /= 2;
+        //        }
+        //        break;
 
-            //stop
-            case 1:
-                speed = 0;
-                actionDuration = Random.Range((int)(stopDurationRange.x * 10), (int)(stopDurationRange.y * 10)) / 10;
-                break;
-            default:
-                break;
-        }
+        //    //stop
+        //    case 1:
+        //        speed = 0;
+        //        actionDuration = Random.Range((int)(stopDurationRange.x * 10), (int)(stopDurationRange.y * 10)) / 10;
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //PickDirection();
+
         PickDirection();
+        actionDuration = Random.Range((int)(movementDurationRange.x * 10), (int)(movementDurationRange.y * 10)) / 10;
+
     }
 
     void PickDirection()
@@ -111,11 +121,14 @@ public class EnemyHCrab : Enemy
             default:
                 break;
         }
-
+        RotateEnemy();
     }
 
     public override void RotateEnemy()
     {
-
+        if (direction == Vector2.up) transform.rotation = Quaternion.Euler(new(0, 0, 0));
+        else if (direction == Vector2.left) transform.rotation = Quaternion.Euler(new(0, -90, 0));
+        else if (direction == Vector2.down) transform.rotation = Quaternion.Euler(new(0, 180, 0));
+        else if (direction == Vector2.right) transform.rotation = Quaternion.Euler(new(0, 90, 0));
     }
 }
