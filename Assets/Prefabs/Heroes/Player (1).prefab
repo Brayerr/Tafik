@@ -100,7 +100,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8731828860784159109}
         m_TargetAssemblyTypeName: PlayerLogic, Assembly-CSharp
         m_MethodName: UseSkill
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -132,7 +132,6 @@ MonoBehaviour:
   speed: 9
   buildSpeedMultiplier: 0.7
   newDirection: {x: 0, y: 0}
-  buildMode: 0
   canGetInput: 1
   canMove: 1
   position: {x: 0, y: 0}
