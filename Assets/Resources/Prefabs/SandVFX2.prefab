@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8036736808669812305}
   - component: {fileID: 5392406673395145463}
   m_Layer: 0
-  m_Name: SandVFX
+  m_Name: SandVFX2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,7 +662,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 2
     angle: 45
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
