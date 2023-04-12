@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GameOver += TimeFreeze;
-        Player.PlayerDead += GameOver;
+        //Player.PlayerDead += GameOver;
     }
 
     private void Update()
