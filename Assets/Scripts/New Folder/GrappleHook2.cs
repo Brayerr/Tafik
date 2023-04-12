@@ -25,6 +25,7 @@ public class GrappleHook2 : Ability
     {
         if(isGaugeFull && PlayerLogic.buildMode)
         {
+            isGaugeFull = false;
             player.DisableMove();
             //player.BuildEnd();
 
