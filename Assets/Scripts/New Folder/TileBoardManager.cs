@@ -125,8 +125,8 @@ public class TileBoardManager : MonoBehaviour
             {
                 if (Board.Tiles[j, i].State == 1 && _tileGraphics[j, i].transform.position.y != 0)
                 {
-                    fillSequence = DOTween.Sequence().Append(_tileGraphics[j, i].transform.DOMoveY(burnRange.x, 0))
-                        .Append(_tileGraphics[j, i].transform.DOMoveY(0, fillTime));
+                    fillSequence = DOTween.Sequence().Append(_tileGraphics[j, i].transform.DOMoveY(burnRange.y, fillTime))
+                        .Append(_tileGraphics[j, i].transform.DOMoveY(0, 0));
                     //_tileGraphics[j, i].transform.DOMoveY(0, 1f).SetEase(Ease.OutExpo);
                     //_tileGraphics[j, i].transform.position = new Vector3(j + 0.5f, 0, i + 0.5f);
                 }
