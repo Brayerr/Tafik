@@ -3193,6 +3193,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7991456948386676639, guid: f24c6cedc5ea74c46ae57c25769fca62,
         type: 3}
+      propertyPath: burnRange.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991456948386676639, guid: f24c6cedc5ea74c46ae57c25769fca62,
+        type: 3}
+      propertyPath: burnRange.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991456948386676639, guid: f24c6cedc5ea74c46ae57c25769fca62,
+        type: 3}
       propertyPath: collapseTimes.x
       value: 0.2
       objectReference: {fileID: 0}
@@ -3441,7 +3451,7 @@ PrefabInstance:
     - target: {fileID: 8731828860784159116, guid: 573a4c02fa9d6934ab959deece9ff785,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.66
+      value: 14.93
       objectReference: {fileID: 0}
     - target: {fileID: 8731828860784159116, guid: 573a4c02fa9d6934ab959deece9ff785,
         type: 3}
@@ -3451,7 +3461,7 @@ PrefabInstance:
     - target: {fileID: 8731828860784159116, guid: 573a4c02fa9d6934ab959deece9ff785,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.6
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 8731828860784159116, guid: 573a4c02fa9d6934ab959deece9ff785,
         type: 3}
@@ -3493,6 +3503,11 @@ PrefabInstance:
       propertyPath: Joystick
       value: 
       objectReference: {fileID: 356552944}
+    - target: {fileID: 8731828860784159117, guid: 573a4c02fa9d6934ab959deece9ff785,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 573a4c02fa9d6934ab959deece9ff785, type: 3}
 --- !u!4 &8832744602699184072 stripped
