@@ -1319,6 +1319,7 @@ GameObject:
   - component: {fileID: 3933488213352649966}
   - component: {fileID: 3538764763032560908}
   - component: {fileID: 3538764763032560910}
+  - component: {fileID: 1605822290}
   m_Layer: 0
   m_Name: Kraken_Trailer_Animations
   m_TagString: Untagged
@@ -1381,6 +1382,22 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &1605822290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4457822681049484884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c2a3a34583bec40b9b7140166216ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlamTelegraph: {fileID: -5842267065820411061, guid: 059c89c0e80921346975886d1995e698,
+    type: 3}
+  cooldown: 9.8
+  postCooldown: 5
 --- !u!1 &4514399652045295342
 GameObject:
   m_ObjectHideFlags: 0
