@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using DG.Tweening;
 using System;
+using Random = UnityEngine.Random;
 
 public class TileBoardManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class TileBoardManager : MonoBehaviour
     static public event Action<int, int> OnCollapseStep;
     Sequence fillSequence;
     Sequence collapseSequence;
+    bool orQuakeStarted;
 
     private void Start()
     {
@@ -39,6 +41,7 @@ public class TileBoardManager : MonoBehaviour
         TileBoardLogic.OnCreatedList += ComparePickupPositions;
         TileBoardLogic.OnTileCollapse += TileCollapseVisual;
         GameManager.OnFakeRestart += FakeRestart;
+        Danger.OnErupt += Eruption;
     }
 
     [ContextMenu("Spawn Grid")]
@@ -176,6 +179,83 @@ public class TileBoardManager : MonoBehaviour
 
         TileBoardLogic.OnConvert -= DrawFill;
         SpawnGrid();
+    }
+
+    [ContextMenu("OrQuake")]
+    void OrQuake()
+    {
+        //if (orQuakeStarted)
+        //    return;
+        //orQuakeStarted = true;
+        foreach (var item in _tileGraphics)
+        {
+            if (Board.Tiles[(int)item.transform.position.x, (int)item.transform.position.z].State == 0)
+            {
+                item.transform.DOMoveY(Random.Range(1, 1.45f), Random.Range(0.2f, 0.4f)).SetLoops(6, LoopType.Yoyo);
+            }
+        }
+        StartCoroutine(Fix());
+    }
+    IEnumerator Fix()
+    {
+        yield return new WaitForSeconds(2.5f);
+        FixGrid();
+    }
+
+    void FixGrid()
+    {
+        foreach (var item in _tileGraphics)
+        {
+            if (Board.Tiles[(int)item.transform.position.x, (int)item.transform.position.z].State == 0)
+            {
+                item.transform.DOMoveY(1, 1);
+            }
+        }
+    }
+
+    [ContextMenu("Earthquake")]
+    void Earthquake()
+    {
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2);
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2);
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2);
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2);
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2);
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2);
+        _tileGraphics[Random.Range(0, dimensions.x - 1), Random.Range(0, dimensions.y - 1)].transform.DOMoveY(1.5f, 0.4f).SetEase(Ease.Flash, 2).onComplete = Earthquake;
+    }
+
+    void Eruption(Vector2Int epicenter, Vector2Int area)
+    {
+        StartCoroutine(Ripple(epicenter, area, 0.1f));
+    }
+    //never considers orientation
+    IEnumerator Ripple(Vector2Int epicenter, Vector2Int area, float delay)
+    {
+        int counter = 0;
+        for (int i = epicenter.y + (area.y - 1) / 2; i >= epicenter.y - 1 - (area.y - 1) / 2 + area.y % 2; i--)
+        {
+            for (int j = epicenter.x - (area.x - 1) / 2; j <= epicenter.x + 1 + (area.x - 1) / 2 - area.x % 2; j++)
+            {
+                TileErupt(j, i);
+                counter++;
+                if (counter == area.x * area.y)
+                {
+                    TileErupt2(j, i);
+                }
+            }
+            yield return new WaitForSeconds(delay);
+        }
+        Debug.Log(counter);
+    }
+
+    void TileErupt(int x, int y)
+    {
+        _tileGraphics[x, y].transform.DOMoveY(10, 1.5f).SetLoops(2, LoopType.Yoyo);
+    }
+    void TileErupt2(int x, int y)
+    {
+        _tileGraphics[x, y].transform.DOMoveY(10, 1.5f).SetLoops(2, LoopType.Yoyo).onComplete = OrQuake;
     }
 
     // area closer

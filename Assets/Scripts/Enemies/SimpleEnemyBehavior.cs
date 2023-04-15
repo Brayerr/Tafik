@@ -32,6 +32,7 @@ public class SimpleEnemyBehavior : Enemy
         RotateEnemy();
     }
 
+    //a simple movement pattern that is similar to a pingpong/screensaver
     public override void Move()
     {
         //the movement enemy is about to perform

@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sand
-  m_Shader: {fileID: -6465566751694194690, guid: 199e21c217f3c6342ad72ca0ecd54c0f,
+  m_Shader: {fileID: -6465566751694194690, guid: 2995f4b1a377d944987e6c2bd1b07f53,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -69,6 +69,7 @@ Material:
     - _Scale: 0.05
     - _Shit: 0
     - _Smoothness: 0
+    - _USE_Y_BURN: 0
     m_Colors:
     - _Color: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 1}
   m_BuildTextureStacks: []

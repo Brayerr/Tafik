@@ -14,6 +14,7 @@ public class EnemyHCrab : Enemy
     float speed;
 
     //for designer
+    [SerializeField] float transformHeight;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
     [SerializeField] float skillCooldown;
@@ -42,7 +43,7 @@ public class EnemyHCrab : Enemy
         //move in data
         position = new Vector2(position.x + dMovement.x, position.y + dMovement.z);
         //update position in unity
-        transform.position = new(position.x, 1, position.y);
+        transform.position = new(position.x, transformHeight, position.y);
 
     }
 

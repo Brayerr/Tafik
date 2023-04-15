@@ -19,4 +19,8 @@ public static class Extension
     {
         return new Vector2Int((int)pos.x, (int)pos.y);
     }
+    public static Vector2Int RoundVector(this Vector3 pos)
+    {
+        return new Vector2Int((int)pos.x, (int)pos.z);
+    }
 }
