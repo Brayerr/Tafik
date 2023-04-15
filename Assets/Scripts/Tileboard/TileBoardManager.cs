@@ -44,6 +44,11 @@ public class TileBoardManager : MonoBehaviour
         Danger.OnErupt += Eruption;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E)) OrQuake();
+    }
+
     [ContextMenu("Spawn Grid")]
     public void SpawnGrid()
     {
