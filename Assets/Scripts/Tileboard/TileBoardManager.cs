@@ -196,7 +196,7 @@ public class TileBoardManager : MonoBehaviour
         {
             if (Board.Tiles[(int)item.transform.position.x, (int)item.transform.position.z].State == 0)
             {
-                item.transform.DOMoveY(Random.Range(1, 1.45f), Random.Range(0.2f, 0.4f)).SetLoops(6, LoopType.Yoyo);
+                item.transform.DOMoveY(Random.Range(1, 1.45f), Random.Range(0.3f, 0.6f)).SetLoops(6, LoopType.Yoyo);
             }
         }
         StartCoroutine(Fix());

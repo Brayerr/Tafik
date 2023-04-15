@@ -1622,28 +1622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1605822289 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4457822681049484884, guid: 6eb618d67afcd67438d50aa52edb9226,
-    type: 3}
-  m_PrefabInstance: {fileID: 1669195632}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1605822290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605822289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94c2a3a34583bec40b9b7140166216ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlamTelegraph: {fileID: -5842267065820411061, guid: 059c89c0e80921346975886d1995e698,
-    type: 3}
-  cooldown: 9.8
-  postCooldown: 5
 --- !u!1001 &1627243793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1826,11 +1804,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Kraken_Trailer_Animations
-      objectReference: {fileID: 0}
-    - target: {fileID: 4457822681049484884, guid: 6eb618d67afcd67438d50aa52edb9226,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eb618d67afcd67438d50aa52edb9226, type: 3}
