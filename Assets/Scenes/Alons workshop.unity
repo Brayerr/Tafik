@@ -1019,7 +1019,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918006873}
   m_LocalRotation: {x: 0.4694715, y: 0, z: 0, w: 0.8829476}
-  m_LocalPosition: {x: 0, y: 4.14, z: -8.2}
+  m_LocalPosition: {x: 15, y: 35, z: -8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1948,30 +1948,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3d5754b1bb7089f41a86eb2dcad6f3d4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feac8d9084e89ee438b79652c668e225, type: 3}
---- !u!1 &1901126555 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 16223202790334697, guid: 55306964489fb7146b47b75618279230,
-    type: 3}
-  m_PrefabInstance: {fileID: 285362720}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1901126558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901126555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 1
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &1913732670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1185149373646033181, guid: 3fc8b444bbef29f47aac4497624ac94f,
@@ -2487,6 +2463,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228543859691814819, guid: 460f9c61394ca8e4aba004255765c8ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 460f9c61394ca8e4aba004255765c8ec, type: 3}
@@ -3777,7 +3758,7 @@ PrefabInstance:
     - target: {fileID: 5411470256538201384, guid: 3652c71b0f2d3b249b6e557272cc5f9b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartButtonLogic
+      value: PlayButtonLogic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3652c71b0f2d3b249b6e557272cc5f9b, type: 3}

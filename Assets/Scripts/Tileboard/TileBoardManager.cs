@@ -12,8 +12,8 @@ public class TileBoardManager : MonoBehaviour
     [SerializeField] float space; //space between instances
     [SerializeField] Vector2Int dimensions;
 
-    [SerializeField] UnityEngine.GameObject EmptyPrefabObject;
-    [SerializeField] UnityEngine.GameObject FilledPrefabObject;
+    [SerializeField] GameObject EmptyPrefabObject;
+    [SerializeField] GameObject FilledPrefabObject;
 
     [SerializeField] float trailCollapseSpeed = 0.06f;
     [SerializeField] Vector2 burnRange = new(0.7f, 0.8f);
@@ -25,7 +25,7 @@ public class TileBoardManager : MonoBehaviour
 
 
     static public TileBoardLogic Board { get; private set; }
-    UnityEngine.GameObject[,] _tileGraphics;
+    GameObject[,] _tileGraphics;
 
     [SerializeField] List<Vector3> specialTiles = new List<Vector3>();
 
@@ -271,4 +271,12 @@ public class TileBoardManager : MonoBehaviour
     // if the corners of that rect arent in the list, add them to the list.
     // keep going looking for corners after the 2nd turning point
 
+    private void OnDestroy()
+    {
+        OnCollapseStep = null;
+        TileBoardLogic.OnCreatedList -= ComparePickupPositions;
+        TileBoardLogic.OnTileCollapse -= TileCollapseVisual;
+        Danger.OnErupt -= Eruption;
+        Board.Destroy();
+    }
 }

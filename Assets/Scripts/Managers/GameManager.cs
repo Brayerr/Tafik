@@ -42,15 +42,17 @@ public class GameManager : MonoBehaviour
     }
 
     public void TimeFreeze() => Time.timeScale = 0;
+    public void TimeUnfreeze() => Time.timeScale = 1;
 
     public void MainMenuButtonLogic()
     {
-        Time.timeScale = 1;
+        TimeUnfreeze();
         SceneManager.LoadScene(0);
     }
 
     public void PlayButtonLogic()
     {
+        TimeUnfreeze();
         SceneManager.LoadScene(1);
     }
 
@@ -64,13 +66,22 @@ public class GameManager : MonoBehaviour
     public void OpenPauseMenu()
     {
         OnOpenedPauseMenu.Invoke();
-        Time.timeScale = 0;
+        TimeFreeze();
 
     }
 
     public void ClosePauseMenu()
     {
-        Time.timeScale = 1;
+        TimeUnfreeze();
         OnClosedPauseMenu.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        GameOver = null;
+        OnOpenedPauseMenu = null;
+        OnClosedPauseMenu = null;
+        OnFakeRestart = null;
+        EnemyManager.ClearList();
     }
 }

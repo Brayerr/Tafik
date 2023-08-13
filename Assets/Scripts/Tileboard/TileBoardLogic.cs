@@ -132,4 +132,17 @@ public class TileBoardLogic
     {
         DugTiles++;
     }
+
+    public void Destroy()
+    {
+        OnConvert = null;
+        OnConverted = null;
+        OnCreatedList = null;
+        OnTileCollapse = null;
+        PlayerLogic.OnTrailStart -= StartTrail;
+        PlayerLogic.OnTrailEnd -= EndTrail;
+        EnemyManager.OnThreatenComplete -= Convert;
+        Enemy.OnEnemyTrailCollision -= CollapseTrail;
+        TileBoardManager.OnCollapseStep -= CollapseTrail2;
+    }
 }

@@ -216,7 +216,7 @@ public class PlayerLogic : MonoBehaviour
         OnPlayerTileChanged = null;
         BuildEnd();
         Debug.Log($"Player Died {Time.realtimeSinceStartup}");
-        StartCoroutine("SpawnPlayerDelayed",2);
+        StartCoroutine("SpawnPlayerDelayed", 2);
         currentHP--;
         OnHPChanged.Invoke(false);
     }
@@ -296,7 +296,7 @@ public class PlayerLogic : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SpawnPlayer();
-        
+
     }
 
     public void NewMovePlayer(Vector3 movement)
@@ -367,7 +367,7 @@ public class PlayerLogic : MonoBehaviour
     {
         abilityFill += tilesDug;
         if (abilityFill >= maxAbilityFill) abilityFill = maxAbilityFill;
-        
+
         OnAbilityFillUpdated.Invoke(abilityFill);
     }
 
@@ -395,5 +395,21 @@ public class PlayerLogic : MonoBehaviour
         UpdateAbilityFill(0);
         ResetHealth();
         SpawnPlayer();
+    }
+
+    private void OnDestroy()
+    {
+        OnWalk = null;
+        OnStopWalk = null;
+        OnDig = null;
+        OnStopDig = null;
+        OnShootGrapple = null;
+        OnAbilityFillUpdated = null;
+        OnHPChanged = null;
+        BuildModeToggle = null;
+        OnPlayerTileChanged = null;
+        OnTrailStart = null;
+        OnTrailEnd = null;
+        OnPlayerDied = null;
     }
 }

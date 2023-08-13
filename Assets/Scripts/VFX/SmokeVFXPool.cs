@@ -45,4 +45,10 @@ public class SmokeVFXPool : MonoBehaviour
             smokeVFX.SetActive(true);
         }      
     }
+
+    private void OnDestroy()
+    {
+        EnemyHCrab2.OnDropShell -= InvokeVFX;
+        EnemyHCrab2.OnPickShell -= InvokeVFX;
+    }
 }

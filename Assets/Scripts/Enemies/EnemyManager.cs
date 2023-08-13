@@ -36,4 +36,9 @@ static public class EnemyManager
         }
         return null;
     }
+
+    static public void ClearList()
+    {
+        enemies.Clear();
+    }
 }

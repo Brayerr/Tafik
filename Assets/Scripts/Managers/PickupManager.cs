@@ -9,6 +9,7 @@ public class PickupManager : MonoBehaviour
 
     private void Start()
     {
+        pickupList.Clear();
         UpdateStaticList();
     }
 

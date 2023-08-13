@@ -11,12 +11,12 @@ public class GrappleHook2 : Ability
     public override int MPUsage { get; protected set; }
     public bool isGaugeFull { get; protected set; } = false;
 
-    UnityEngine.GameObject hookObject;
+    GameObject hookObject;
     GrappleHookHook hook;
 
     private void Start()
     {
-        hookObject = Resources.Load<UnityEngine.GameObject>("Prefabs/Hook");
+        hookObject = Resources.Load<GameObject>("Prefabs/Hook");
         AnimationsManager.OnGaugeFilled += AllowGaugeBool;
         AnimationsManager.OnGaugeUnfilled += DisAllowGaugeBool;
     }
@@ -46,5 +46,10 @@ public class GrappleHook2 : Ability
 
     void AllowGaugeBool() => isGaugeFull = true;
     void DisAllowGaugeBool() => isGaugeFull = false;
+
+    private void OnDestroy()
+    {
+        onActivatedAbility = null;
+    }
 }
 
