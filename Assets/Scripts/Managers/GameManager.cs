@@ -23,7 +23,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GameOver += TimeFreeze;
+        UIManager.MenuOpened += TimeFreeze;
+        UIManager.MenuClosed += TimeUnfreeze;
         //Player.PlayerDead += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        UIManager.MenuOpened -= TimeFreeze;
+        UIManager.MenuClosed -= TimeUnfreeze;
     }
 
     private void Update()
@@ -66,13 +74,13 @@ public class GameManager : MonoBehaviour
     public void OpenPauseMenu()
     {
         OnOpenedPauseMenu.Invoke();
-        TimeFreeze();
+        //TimeFreeze();
 
     }
 
     public void ClosePauseMenu()
     {
-        TimeUnfreeze();
+        //TimeUnfreeze();
         OnClosedPauseMenu.Invoke();
     }
 

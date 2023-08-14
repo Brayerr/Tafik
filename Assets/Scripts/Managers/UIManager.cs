@@ -10,14 +10,15 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    
+    public static event Action MenuOpened;
+    public static event Action MenuClosed;
 
     //[SerializeField] private Button MainMenuButton;
     [SerializeField] private TextMeshProUGUI digPrecentageText;
     [SerializeField] private TextMeshProUGUI VictoryText;
     [SerializeField] private Button abilityButton;
     [SerializeField] private Button abilityButtonFill;
-    [SerializeField] private Canvas pauseMenu;
+    [SerializeField] private Image pauseMenu;
 
     [SerializeField] Image[] hearts = new Image[5];
     [SerializeField] int currentHearts;
@@ -76,7 +77,7 @@ public class UIManager : MonoBehaviour
         if (value) currentHearts++;
         else currentHearts--;
 
-        switch(currentHearts)
+        switch (currentHearts)
         {
             case 0:
                 {
@@ -134,16 +135,32 @@ public class UIManager : MonoBehaviour
                     hearts[1].gameObject.SetActive(true);
                     hearts[2].gameObject.SetActive(true);
                     hearts[3].gameObject.SetActive(true);
-                    hearts[4].gameObject.SetActive(true);                   
+                    hearts[4].gameObject.SetActive(true);
                     break;
                 }
 
         }
     }
-    
 
-    public void ActivatePauseMenu() => pauseMenu.gameObject.SetActive(true);
-    public void DeactivatePauseMenu() => pauseMenu.gameObject.SetActive(false);
+
+    public void ActivatePauseMenu()
+    {
+        pauseMenu.gameObject.SetActive(true);
+        pauseMenu.transform.DOScale(2.4f, 0.3f).OnComplete(() =>
+        {
+            MenuOpened.Invoke();
+        });
+    }
+
+    public void DeactivatePauseMenu()
+    {
+        MenuClosed.Invoke();
+        pauseMenu.transform.DOScale(.1f, 0.3f).OnComplete(() =>
+        {
+            pauseMenu.gameObject.SetActive(false);
+        });
+    }
+
 
     void FakeRestart()
     {

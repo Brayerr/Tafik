@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using DG.Tweening;
 public class PlayPanel : MonoBehaviour
 {
     [SerializeField] Image[] islands = new Image[2];
@@ -29,7 +29,10 @@ public class PlayPanel : MonoBehaviour
         {
             islands[currentIslandIndex].gameObject.SetActive(false);
             currentIslandIndex++;
+            islands[currentIslandIndex].gameObject.transform.localScale = Vector3.zero;
             islands[currentIslandIndex].gameObject.SetActive(true);
+            islands[currentIslandIndex].gameObject.transform.DOScale(4.5f, .2f);
+
         }
     }
 
@@ -39,7 +42,9 @@ public class PlayPanel : MonoBehaviour
         {
             islands[currentIslandIndex].gameObject.SetActive(false);
             currentIslandIndex--;
+            islands[currentIslandIndex].gameObject.transform.localScale = Vector3.zero;
             islands[currentIslandIndex].gameObject.SetActive(true);
+            islands[currentIslandIndex].gameObject.transform.DOScale(4.5f, .2f);
         }    
     }
 
